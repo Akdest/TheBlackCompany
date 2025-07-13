@@ -16,10 +16,10 @@ export default function GetInTouch() {
           <div className="flex items-start gap-6">
             <h1 className="text-6xl lg:text-[8rem] font-extrabold leading-none">
               <span className="block">STAY</span>
-              <span className="block">STYLISH</span>
+              <span className="block">&nbsp;&nbsp;STYLISH</span>
             </h1>
 
-            <div className="relative w-20 h-20 rotate-12">
+            <div className="relative -left-1/3 -top-6 w-full h-40 rotate-12">
               <Image
                 src="/prod/prod3.jpg"
                 alt="Styled Model"
@@ -28,11 +28,11 @@ export default function GetInTouch() {
               />
             </div>
 
-            <span className="text-5xl font-extrabold ml-4">+</span>
+          
           </div>
 
           <p className="max-w-md text-sm leading-relaxed text-white/70">
-            Stay connected with The Row. Explore our world of luxury and elegance through our newsletter. Follow us on social media for the latest updates, exclusive offers, and more. Experience the epitome of sophistication with The Row.
+            Stay connected with The Black Company. Explore our world of luxury and elegance through our newsletter. Follow us on social media for the latest updates, exclusive offers, and more. Experience the epitome of sophistication with The Black Company.
           </p>
         </div>
 
@@ -49,7 +49,7 @@ export default function GetInTouch() {
 
       {/* Footer-style links */}
       <div className="mt-20 max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 text-sm gap-y-6">
-        <div className="uppercase tracking-wider text-white/60">The Row</div>
+        <div className="uppercase tracking-wider text-white/60">The Black Company</div>
 
         <div className="flex flex-col gap-1 text-white/80">
           <span>Studio</span>

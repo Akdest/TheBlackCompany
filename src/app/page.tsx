@@ -13,11 +13,12 @@ export default function Home() {
     <>
     <Navbar/>
     <Hero/>
-    <ExclusiveStrip/>
+    
     <FallCollection/>
     <SummerCollection/>
     <WinterCollection/>
     <GetInTouch/>
+    <ExclusiveStrip/>
     <Footer/>
     </>
   );

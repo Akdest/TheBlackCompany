@@ -62,7 +62,7 @@ export default function SummerCollection() {
                   </defs>
                   <text fontSize="6" fill="white" letterSpacing="2">
                     <textPath href="#circlePath" startOffset="0">
-                      DISCOVER • DISCOVER • DISCOVER •
+                      SUMMER • SUMMER • SUMMER • SUMMER 
                     </textPath>
                   </text>
                 </svg>

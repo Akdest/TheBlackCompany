@@ -36,8 +36,9 @@ export default function HeroSection() {
 <div className="hidden md:block absolute bottom-1/8 right-1/12 text-white/40 text-sm tracking-widest z-20">
   0x54484520424C41434B20434F4D50414E59
 </div>
-
+     
     </section>
+    
     </>
   );
 }
