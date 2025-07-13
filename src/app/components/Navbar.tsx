@@ -110,8 +110,8 @@ const Navbar: React.FC = () => {
             </div>
 
            {/* Horizontal Line + Fixed Button */}
-<div className="absolute bottom-0 left-0 w-full px-8 py-6 bg-black/90">
-  <hr className="border-black/20 mb-6 w-full" />
+<div className="absolute bottom-0 left-0 w-full px-8 py-6 bg-black/80 backdrop-blur-md border-t border-white/20">
+  {/* <hr className="border-white/80 mb-6 w-full" /> */}
   <div className="flex justify-center">
     <Link
       href="#contact"
