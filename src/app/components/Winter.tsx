@@ -4,7 +4,7 @@ import Image from "next/image";
   import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
-export default function FallCollection() {
+export default function WinterCollection() {
   return (
     <section className="min-h-screen bg-black text-white px-8 py-16 flex flex-col items-center gap-12">
       
@@ -15,7 +15,7 @@ export default function FallCollection() {
           {/* Left Heading */}
           <div>
             <h1 className="text-4xl lg:text-[6rem] font-bold leading-tight">
-              FALL OF <br /> COLLECTIONS
+              WINTER <br /> COLLECTIONS
             </h1>
           </div>
 
@@ -34,7 +34,7 @@ export default function FallCollection() {
          {/* — Left Product — */}
 <div className="flex flex-col items-center relative">
   <Image
-    src="/bg/blk_model1.jpg"
+    src="/prod/tshirt.jpg"
     alt="Olimpia Jacket"
     width={320}
     height={700}
@@ -42,7 +42,7 @@ export default function FallCollection() {
   />
 
   <p className="mt-4 text-sm text-center z-10">
-    Olimpia Jacket in Polyester
+   Black T-Shirts
   </p>
 
   {/* Decorative Diamond Grid */}
@@ -76,54 +76,41 @@ export default function FallCollection() {
           
 
 {/* Circular Discover Button */}
-<Link href="#discover" >
-<div className="relative w-56 h-56 flex items-center justify-center group">
-  {/* SVG text circle */}
-  <svg
-    className="absolute w-full h-full transition-transform duration-700 "
-    viewBox="0 0 100 100"
-  >
-    <defs>
-      <path
-        id="circlePath"
-        d="M 50, 50
-           m -35, 0
-           a 35,35 0 1,1 70,0
-           a 35,35 0 1,1 -70,0"
-      />
-    </defs>
-    <text
-      fontSize="6"
-      fill="white"
-      letterSpacing="2"
-    >
-      <textPath
-        href="#circlePath"
-        startOffset="0"
-      >
-        DISCOVER • DISCOVER • DISCOVER •
-      </textPath>
-    </text>
-  </svg>
-  
+<Link href="#discover">
+              <div className="relative w-56 h-56 flex items-center justify-center group">
+                <svg
+                  className="absolute w-full h-full transition-transform duration-700 group-hover:rotate-180"
+                  viewBox="0 0 100 100"
+                >
+                  <defs>
+                    <path
+                      id="circlePath"
+                      d="M 50, 50
+                        m -35, 0
+                        a 35,35 0 1,1 70,0
+                        a 35,35 0 1,1 -70,0"
+                    />
+                  </defs>
+                  <text fontSize="6" fill="white" letterSpacing="2">
+                    <textPath href="#circlePath" startOffset="0">
+                      DISCOVER • DISCOVER • DISCOVER •
+                    </textPath>
+                  </text>
+                </svg>
 
-  {/* Center icon */}
-  <ArrowUpRight
-  className="w-20 h-20 text-white z-10 transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-45"
-/>
-
-</div>
-</Link>
+                <ArrowUpRight className="w-20 h-20 text-white z-10 transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-45" />
+              </div>
+            </Link>
             <div className="flex flex-col items-center">
               <Image
-                src="/bg/blk_model1.jpg"
+                src="/prod/prod2.jpg"
                 alt="Balthus Polo"
                 width={320}
                 height={720}
                 className="object-cover h-[500px] md:h-[500px]"
               />
               <p className="mt-4 text-sm  text-center">
-                Balthus Polo in Llama &amp; Silk
+               Black Shoes
          
               </p>
             </div>
@@ -133,7 +120,7 @@ export default function FallCollection() {
           <div className="flex flex-col items-end gap-4">
             
             <Image
-              src="/bg/blk_model1.jpg"
+              src="/prod/hoodie.jpg"
               alt="Hero Look"
               width={400}
               height={700}

@@ -1,6 +1,11 @@
 import Hero from "./components/Hero";
-import  FallCollection from "./components/Discover";
+import  FallCollection from "./components/Fall";
 import Navbar from "./components/Navbar";
+import SummerCollection from "./components/Summer";
+import WinterCollection from "./components/Winter";
+import GetInTouch from "./components/GetInTouch";
+import Footer from "./components/Footer";
+import ExclusiveStrip from "./components/Strip";
 
 
 export default function Home() {
@@ -8,7 +13,12 @@ export default function Home() {
     <>
     <Navbar/>
     <Hero/>
+    <ExclusiveStrip/>
     <FallCollection/>
+    <SummerCollection/>
+    <WinterCollection/>
+    <GetInTouch/>
+    <Footer/>
     </>
   );
 }
