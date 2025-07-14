@@ -60,7 +60,7 @@ export default function WinterCollection() {
          {/* — Left Product — */}
 <div className="flex flex-col items-center relative">
   <Image
-    src="/prod/tshirt.jpg"
+    src="/prod/women-blazer.jpg"
     alt="Olimpia Jacket"
     width={320}
     height={700}
@@ -68,7 +68,7 @@ export default function WinterCollection() {
   />
 
   <p className="mt-4 text-sm text-center z-10">
-   Black T-Shirts
+   Black Blazers
   </p>
 
   {/* Decorative Diamond Grid */}
@@ -104,14 +104,14 @@ export default function WinterCollection() {
 
             <div className="flex flex-col items-center">
               <Image
-                src="/prod/prod2.jpg"
+                src="/prod/pant.jpg"
                 alt="Balthus Polo"
                 width={320}
                 height={720}
                 className="object-cover h-[500px] md:h-[500px]"
               />
               <p className="mt-4 text-sm  text-center">
-               Black Shoes
+               Black Pants
          
               </p>
             </div>
@@ -121,7 +121,7 @@ export default function WinterCollection() {
           <div className="flex flex-col items-end gap-4">
             
             <Image
-              src="/prod/hoodie.jpg"
+              src="/prod/prod4.jpg"
               alt="Hero Look"
               width={400}
               height={700}

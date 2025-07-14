@@ -3,16 +3,15 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+ import { User, ShoppingCart } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "#" },
   { label: "Shop", href: "#shop" },
-  { label: "Collections", href: "#collections" },
-  { label: "Lookbook", href: "#lookbook" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
-  { label: "Blog", href: "#blog" },
+  { label: "Account", href: "#account" },
   { label: "Cart", href: "#cart" },
+  { label: "About", href: "#about" },
+  { label: "Get In Touch", href: "#get-in-touch" },
 ];
 
 const Navbar: React.FC = () => {
@@ -55,10 +54,27 @@ const Navbar: React.FC = () => {
             </span>
           </button>
 
-          {/* Desktop Reach Us */}
-          <div className="hidden lg:block px-8 py-2 text-md text-white border-2 border-white hover:bg-white hover:text-black transition duration-300">
-            <Link href="#contact">Reach Us</Link>
-          </div>
+          {/* Desktop Profile and Cart */}
+        
+
+<div className="hidden lg:flex items-center gap-4">
+  {/* Profile Button */}
+  <Link
+    href="/profile"
+    className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300"
+  >
+    <User className="w-5 h-5" />
+  </Link>
+
+  {/* Cart Button */}
+  <Link
+    href="/cart"
+    className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300"
+  >
+    <ShoppingCart className="w-5 h-5" />
+  </Link>
+</div>
+
         </div>
       </div>
 
@@ -83,7 +99,7 @@ const Navbar: React.FC = () => {
             {/* Scrollable Nav Content */}
             <div className="h-full w-full pt-24 pb-32 px-8 overflow-y-auto flex flex-col">
               {/* Snap container */}
-              <div className="flex flex-col items-center gap-10 snap-y snap-mandatory">
+              <div className="flex flex-col items-center gap-10 snap-y snap-mandatory uppercase">
                 {navLinks.map(({ label, href }) => (
                   <motion.a
                     key={label}

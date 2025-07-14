@@ -22,7 +22,7 @@ export default function FallCollection() {
           {/* Right-Aligned Description */}
           <div className="lg:pt-28  w-full  lg:w-[40%]">
             <p className="text-xl text-white/80 text-right">
-              The Row&apos;s Fall Collection showcases timeless elegance and modern
+              The Fall Collection showcases timeless elegance and modern
               minimalism with luxurious fabrics, clean lines, and understated
               sophistication.
             </p>
@@ -117,16 +117,24 @@ export default function FallCollection() {
           </div>
 
           {/* — Right Column — */}
-          <div className="flex flex-col items-end gap-4">
-            
-            <Image
-              src="/prod/hoodie.jpg"
-              alt="Hero Look"
-              width={400}
-              height={700}
-              className="object-cover  md:h-[700px] h-[500px]"
-            />
-          </div>
+     <div className="flex flex-col items-end gap-4 relative">
+  {/* Horizontal line with white glow */}
+  <div className="absolute top-0 right-1/4 w-[400px] h-[4px] bg-[#c7c7c7]  opacity-90 " />
+
+  {/* Vertical line */}
+  <div className="absolute top-0 right-1/2 h-[96px] w-[4px] bg-[#c7c7c7] opacity-70" />
+
+  {/* Image with gray bottom-left drop shadow */}
+  <Image
+    src="/prod/prod4.jpg"
+    alt="Hero Look"
+    width={400}
+    height={700}
+    className="object-cover mt-24 md:h-[700px] h-[500px] shadow-[ -15px_20px_30px_rgba(128,128,128,0.3)]"
+  />
+</div>
+
+
         </div>
       </div>
     </section>

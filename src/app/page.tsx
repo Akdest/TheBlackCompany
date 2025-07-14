@@ -5,7 +5,6 @@ import SummerCollection from "./components/Summer";
 import WinterCollection from "./components/Winter";
 import GetInTouch from "./components/GetInTouch";
 import Footer from "./components/Footer";
-import ExclusiveStrip from "./components/Strip";
 
 
 export default function Home() {
@@ -18,7 +17,7 @@ export default function Home() {
     <SummerCollection/>
     <WinterCollection/>
     <GetInTouch/>
-    <ExclusiveStrip/>
+   
     <Footer/>
     </>
   );

@@ -9,8 +9,8 @@ export default function Footer() {
       
 
       {/* Bottom Bar */}
-      <div className="mt-12 border-t border-white/10 pt-6 text-xs text-white/50 flex flex-col md:flex-row justify-between items-center gap-4">
-        <span>&copy; {new Date().getFullYear()} The Row. All rights reserved.</span>
+      <div className=" border-t border-white/10 pt-6 text-xs text-white/50 flex flex-col md:flex-row justify-between items-center gap-4">
+        <span>&copy; {new Date().getFullYear()} THE BLACK COMPANY.<br/> All rights reserved.</span>
         <div className="flex gap-4">
           <Link href="#privacy" className="hover:text-white">Privacy</Link>
           <Link href="#terms" className="hover:text-white">Terms</Link>

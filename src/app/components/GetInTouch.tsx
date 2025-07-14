@@ -2,11 +2,23 @@
 
 import Image from "next/image";
 import React from "react";
+import ExclusiveStrip from "./Strip";
 
 export default function GetInTouch() {
   return (
-    <section className="bg-black text-white w-full px-6 py-20 md:px-16">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+    <>
+    <section className="relative bg-black text-white w-full px-6 py-20 overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute right-0 top-0 h-full w-full z-0 opacity-20">
+        <Image
+          src="/bg/blk_model1.jpg"
+          alt="Walking Model"
+          fill
+          className="object-cover object-right"
+        />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
         {/* Left block */}
         <div className="col-span-1 md:col-span-2 flex flex-col gap-6">
           <div className="uppercase text-sm tracking-wide text-white/80">
@@ -27,8 +39,6 @@ export default function GetInTouch() {
                 className="object-cover"
               />
             </div>
-
-          
           </div>
 
           <p className="max-w-md text-sm leading-relaxed text-white/70">
@@ -36,35 +46,47 @@ export default function GetInTouch() {
           </p>
         </div>
 
-        {/* Right image block */}
-        <div className="w-full h-[400px] relative">
-          <Image
-            src="/prod/hoodie.jpg"
-            alt="Walking Model"
-            fill
-            className="object-cover"
-          />
+        {/* Description with vertical bar (no image now) */}
+        <div className="flex flex-col gap-4 z-10">
+          <div className="flex items-start gap-3">
+            <div className="w-[3px] h-full border-l-2 border-white bg-white/80" />
+            <p className="text-sm text-white/70 leading-relaxed border-l-2 border-white px-4">
+              Effortlessly cool. Boldly minimal. This look redefines street elegance for the season ahead.
+              Draped in timeless monochrome, it merges raw attitude with refined silhouettes.
+              Every thread whispers intention — clean lines, confident form, and a quiet rebellion against the ordinary.
+              Made for those who don&apos;t just follow fashion — they shape it.
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Footer-style links */}
-      <div className="mt-20 max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 text-sm gap-y-6">
-        <div className="uppercase tracking-wider text-white/60">The Black Company</div>
+   {/* Footer-style links: brand left, links right */}
+<div className="relative z-10 mt-20 max-w-7xl mx-auto flex justify-between items-start text-md">
+  
+  {/* Left: Brand name */}
+  <div className="uppercase tracking-wider text-white/60">
+    - The Black Company
+  </div>
 
-        <div className="flex flex-col gap-1 text-white/80">
-          <span>Studio</span>
-          <span>Contact</span>
-          <span>@maisontherow</span>
-        </div>
+  {/* Right: Links */}
+  <div className="flex flex-col md:flex-row gap-8 text-white/80 text-left">
+    {/* Group 1 */}
+    <div className="flex flex-col gap-1">
+      <span>Studio</span>
+      <span>Contact</span>
+    </div>
 
-        <div className="flex flex-col gap-1 text-white/80">
-          <span>Instagram</span>
-          <span>Twitter</span>
-          <span>Facebook</span>
-        </div>
+    {/* Group 2 */}
+    <div className="flex flex-col gap-1">
+      <span>Instagram</span>
+      <span>Twitter</span>
+      <span>Facebook</span>
+    </div>
+  </div>
+</div>
 
-       
-      </div>
     </section>
+    <ExclusiveStrip/>
+    </>
   );
 }
