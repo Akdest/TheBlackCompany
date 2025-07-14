@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function FallCollection() {
   return (
-    <section className="min-h-screen bg-black text-white px-8 py-16 flex flex-col items-center gap-12">
+    <section className="min-h-screen bg-black text-white mx-auto px-8 lg:py-16 flex flex-col items-center gap-12">
       
       <div className="w-full max-w-7xl">
        <span className="text-white/60 text-3xl relative top-8 left-1/3">(2025)</span>

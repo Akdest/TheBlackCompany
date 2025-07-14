@@ -88,11 +88,12 @@ export default function Login() {
           </div>
 
           {/* Login Button */}
-          <button
+        
+           <button
             type="submit"
             className="mt-6 bg-white text-black py-3 uppercase tracking-wide font-semibold hover:bg-black/40 hover:text-white transition cursor-pointer shadow-lg hover:shadow-md hover:shadow-white/10 "
           >
-            Sign In
+            <Link href="/pages/ProfileDashboard">Sign In</Link>
           </button>
         </form>
 

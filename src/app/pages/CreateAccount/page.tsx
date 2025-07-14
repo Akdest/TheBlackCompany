@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/app/components/Navbar";
 import { User, Mail, Calendar, MapPin, Lock, EyeOff, Eye, CheckSquare } from "lucide-react";
 import Footer from "@/app/components/Footer";
+import Link from "next/link";
 
 export default function CreateAccount() {
   const [step, setStep] = useState(1);
@@ -473,12 +474,14 @@ const leftContentByStep: Record<number, { title: string; description: React.Reac
                     Next
                   </button>
                 ) : (
-                  <button
-                    type="submit"
-                    className="bg-white text-black px-6 py-2 uppercase tracking-wide font-semibold hover:bg-white/90"
-                  >
-                    Create Account
-                  </button>
+                 <Link href="/pages/ProfileDashboard">
+                   <button
+                     type="submit"
+                     className="bg-white text-black px-6 py-2 uppercase tracking-wide font-semibold hover:bg-white/90"
+                   >
+                     Create Account
+                   </button>
+                 </Link>
                 )}
               </div>
             </form>

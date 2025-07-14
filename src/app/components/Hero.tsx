@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function HeroSection() {
   return (
     <>
-    <section className="relative w-full h-[100vh] bg-black text-white overflow-hidden">
+    <section className="relative w-full h-[100vh] mx-auto bg-black text-white overflow-hidden">
       {/* The Model Image */}
       <div className="absolute right-0 top-0 h-full w-[60%]">
         <Image

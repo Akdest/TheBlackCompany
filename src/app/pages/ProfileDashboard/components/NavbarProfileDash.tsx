@@ -3,18 +3,23 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
- import { User, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
+
+interface NavbarProfileDashProps {
+  onSelectSection: (section: string) => void;
+  activeSection: string;
+}
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Shop", href: "#shop" },
-  { label: "Account", href: "/pages/Login" },
-  { label: "Cart", href: "#cart" },
-  { label: "About", href: "#about" },
-  { label: "Get In Touch", href: "#get-in-touch" },
+  { label: "Profile", id: "profile" },
+  { label: "My Orders", id: "orders" },
+  { label: "Wishlist", id: "wishlist" },
+  { label: "Addresses", id: "addresses" },
+  { label: "Settings", id: "settings" },
+  { label: "Support", id: "support" }
 ];
 
-const Navbar: React.FC = () => {
+const NavbarProfileDash: React.FC<NavbarProfileDashProps> = ({ onSelectSection, activeSection }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -28,18 +33,15 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-[100] font-['Poppins']">
-      {/* Top Nav */}
       <div
         className={`flex justify-between items-center px-6 md:px-10 h-16 max-w-7xl mx-auto transition-all duration-300 
         ${isScrolled ? "bg-black/30 backdrop-blur-md border-b border-white/20 shadow-sm" : ""}`}
       >
         <div className="flex justify-between items-center w-full">
-          {/* Logo */}
           <div className="text-white font-extrabold text-xl md:text-2xl cursor-pointer select-none uppercase leading-tight">
             <Link href="/">The Black Company</Link>
           </div>
 
-          {/* Menu Button */}
           <button
             aria-label="Toggle menu"
             onClick={() => setSidebarOpen(true)}
@@ -54,31 +56,14 @@ const Navbar: React.FC = () => {
             </span>
           </button>
 
-          {/* Desktop Profile and Cart */}
-        
-
-<div className="hidden lg:flex items-center gap-4">
-  {/* Profile Button */}
-  <Link
-    href="/pages/Login"
-    className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300"
-  >
-    <User className="w-5 h-5" />
-  </Link>
-
-  {/* Cart Button */}
-  <Link
-    href="/cart"
-    className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300"
-  >
-    <ShoppingCart className="w-5 h-5" />
-  </Link>
-</div>
-
+          <div className="hidden lg:flex items-center gap-4">
+            <Link href="/pages/Cart" className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300">
+              <ShoppingCart className="w-5 h-5" />
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* Sidebar */}
       <AnimatePresence>
         {sidebarOpen && (
           <motion.div
@@ -88,7 +73,6 @@ const Navbar: React.FC = () => {
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
             className="fixed top-0 left-0 w-full h-screen bg-black/80 backdrop-blur-md text-white z-[150] font-['Poppins']"
           >
-            {/* Close Button */}
             <button
               className="absolute top-6 right-6 text-4xl lg:text-[4rem] font-bold text-white"
               onClick={() => setSidebarOpen(false)}
@@ -96,16 +80,22 @@ const Navbar: React.FC = () => {
               &times;
             </button>
 
-            {/* Scrollable Nav Content */}
             <div className="h-full w-full pt-24 pb-32 px-8 overflow-y-auto flex flex-col">
-              {/* Snap container */}
               <div className="flex flex-col items-center gap-10 snap-y snap-mandatory ">
-                {navLinks.map(({ label, href }) => (
-                  <motion.a
-                    key={label}
-                    href={href}
-                    onClick={() => setSidebarOpen(false)}
-                    className="text-4xl lg:text-[4rem] tracking-wider font-extrabold hover:text-gray-300 transition duration-300 relative snap-start"
+                {navLinks.map(({ label, id }) => (
+                  <motion.button
+                    key={id}
+                    onClick={() => {
+                      onSelectSection(id);
+                      setSidebarOpen(false);
+                    }}
+                    className={`text-4xl lg:text-[4rem] tracking-wider font-extrabold transition duration-300 relative snap-start
+                      ${
+                        activeSection === id
+                          ? "text-white underline decoration-4 underline-offset-8"
+                          : "hover:text-gray-300"
+                      }
+                    `}
                     initial="rest"
                     whileHover="hover"
                     animate="rest"
@@ -120,24 +110,21 @@ const Navbar: React.FC = () => {
                       className="absolute bottom-0 left-0 h-[3px] bg-white"
                       style={{ display: "block" }}
                     />
-                  </motion.a>
+                  </motion.button>
                 ))}
               </div>
             </div>
 
-           {/* Horizontal Line + Fixed Button */}
-<div className="absolute bottom-0 left-0 w-full px-8 py-6 bg-black/80 backdrop-blur-md border-t border-white/20">
-  {/* <hr className="border-white/80 mb-6 w-full" /> */}
-  <div className="flex justify-center">
-    <Link
-      href="#contact"
-      className="px-8 py-3 text-lg border-2 border-white text-white hover:bg-white hover:text-black transition duration-300 max-w-max"
-    >
-      Reach Us
-    </Link>
-  </div>
-</div>
-
+            <div className="absolute bottom-0 left-0 w-full px-8 py-6 bg-black/80 backdrop-blur-md border-t border-white/20">
+              <div className="flex justify-center">
+                <Link
+                  href="/"
+                  className="px-8 py-3 text-lg border-2 border-white text-white hover:bg-white hover:text-black transition duration-300 max-w-max"
+                >
+                  Logout
+                </Link>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -145,4 +132,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export default NavbarProfileDash;
