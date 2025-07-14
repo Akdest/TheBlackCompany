@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center w-full">
           {/* Logo */}
           <div className="text-white font-extrabold text-xl md:text-2xl cursor-pointer select-none uppercase leading-tight">
-            The Black Company
+            <Link href="/">The Black Company</Link>
           </div>
 
           {/* Menu Button */}
@@ -60,7 +60,7 @@ const Navbar: React.FC = () => {
 <div className="hidden lg:flex items-center gap-4">
   {/* Profile Button */}
   <Link
-    href="/profile"
+    href="/pages/Login"
     className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300"
   >
     <User className="w-5 h-5" />
