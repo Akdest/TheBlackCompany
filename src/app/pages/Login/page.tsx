@@ -98,7 +98,7 @@ export default function Login() {
 
         {/* Bottom Text */}
         <div className="mt-10 text-center text-xs text-white/50">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <span className="text-white hover:underline cursor-pointer">
             <Link href="/pages/CreateAccount">Join the Black.</Link>
           </span>
