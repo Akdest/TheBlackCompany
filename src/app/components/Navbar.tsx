@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
       >
         <div className="flex justify-between items-center w-full">
           {/* Logo */}
-          <div className="text-white font-extrabold text-xl md:text-2xl cursor-pointer select-none">
+          <div className="text-white font-extrabold text-xl md:text-2xl cursor-pointer select-none uppercase leading-tight">
             The Black Company
           </div>
 
