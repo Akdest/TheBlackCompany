@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/app/components/Navbar";
-import { User, Mail, Calendar, MapPin, Lock, EyeOff, Eye } from "lucide-react";
+import { User, Mail, Calendar, MapPin, Lock, EyeOff, Eye, CheckSquare } from "lucide-react";
 import Footer from "@/app/components/Footer";
 
 export default function CreateAccount() {
@@ -102,32 +102,102 @@ export default function CreateAccount() {
     alert("Account created! Check console for details. Remove this alert in production.");
   };
 
-const leftContentByStep: Record<number, { title: string; description: string }> = {
+const leftContentByStep: Record<number, { title: string; description: React.ReactNode }> = {
     1: {
         title: "Welcome to The Black Company",
-        description:
-            "Crafted in the shadows of elegance. Our garments aren’t worn—they’re embodied. Begin the journey. Every legend starts with a name—yours.\n\nStep into a world where fashion meets mystery. Your name is the first mark on your legend. We believe in individuality—let your identity shine. This is more than a signup; it’s an initiation. The Black Company is a family, and every member is unique. Your story starts here. Ready to make your mark?"
+        description: (
+            <ul className="space-y-8 text-white/80 text-sm">
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Every legend starts with a name—yours.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Step into a world where fashion meets mystery.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Your story starts here. Ready to make your mark?
+                </li>
+            </ul>
+        )
     },
     2: {
         title: "Connect With Us",
-        description:
-            "Stay in the loop with drops, events, and encrypted fashion memos. We don’t spam. We whisper. Your email is your key to the inner circle.\n\nExpect only the most vital transmissions—exclusive offers, secret launches, and invitations to private events. We value your privacy and never share your details. Communication is sacred here. Your inbox will be a portal to our world. Join the conversation, and never miss a moment of the movement."
+        description: (
+            <ul className="space-y-8 text-white/80 text-sm">
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Get exclusive offers and secret launches.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    No spam—only vital transmissions.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Your privacy is respected and protected.
+                </li>
+            </ul>
+        )
     },
     3: {
         title: "Age of Elegance",
-        description:
-            "Style has no age—but our coven begins at 15. Ensure you're ready to wield it. Your birthdate unlocks the next chapter.\n\nWe honor the wisdom of experience and the spark of youth. This is a rite of passage—prove you’re ready to join the ranks. Age is more than a number; it’s a badge of readiness. Your journey is just beginning. Let your legacy grow with us. The next chapter awaits those who are prepared."
+        description: (
+            <ul className="space-y-8 text-white/80 text-sm">
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Membership begins at age 15+.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    This is your rite of passage.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Let your legacy grow with us.
+                </li>
+            </ul>
+        )
     },
     4: {
         title: "Your Domain",
-        description:
-            "Let us know where your cloak flies. A well-placed delivery is the start of everything. Your address is safe in our vault.\n\nWe deliver not just products, but experiences. Your location is the gateway to our world. Rest assured, your information is guarded with utmost care. Expect swift, secure, and discreet deliveries. Every address tells a story—let yours be the next. Welcome to the network of the chosen."
+        description: (
+            <ul className="space-y-8 text-white/80 text-sm">
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Fast, secure, and discreet deliveries.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Your address is safe in our vault.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Every address tells a story—let yours be next.
+                </li>
+            </ul>
+        )
     },
     5: {
         title: "Secure the Vault",
-        description:
-            "A strong password. A sealed pact. Guard your account like it’s sacred—it is. Only you hold the key to your legacy.\n\nSecurity is our highest priority. Choose a password that stands the test of time. Protect your secrets and your style. This is your digital fortress—make it impenetrable. Your legacy deserves the best defense. Trust in your strength, and step forward with confidence."
-    },
+        description: (
+            <ul className="space-y-8 text-white/80 text-sm">
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Choose a strong, unique password.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Protect your secrets and your style.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Your legacy deserves the best defense.
+                </li>
+            </ul>
+        )
+    }
 };
 
   return (
@@ -164,12 +234,12 @@ const leftContentByStep: Record<number, { title: string; description: string }> 
               <h2 className="text-3xl font-semibold uppercase tracking-wide text-white">
                 {leftContentByStep[step]?.title}
               </h2>
-              <p className="text-white/70 text-sm">{leftContentByStep[step]?.description}</p>
+              <div className="text-white/70 text-sm">{leftContentByStep[step]?.description}</div>
             </motion.div>
           </div>
 
           {/* Right Column: Form */}
-          <div className="p-10 flex flex-col justify-center w-full bg-white/5 border border-white/10">
+          <div className="p-10 flex flex-col h-full justify-center w-full bg-white/5 border border-white/10">
             <div className="uppercase text-xs text-white/40 tracking-widest mb-4">
               Step {step} of 5
             </div>
