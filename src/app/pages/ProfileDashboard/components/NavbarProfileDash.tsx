@@ -57,7 +57,7 @@ const NavbarProfileDash: React.FC<NavbarProfileDashProps> = ({ onSelectSection, 
           </button>
 
           <div className="hidden lg:flex items-center gap-4">
-            <Link href="/pages/Cart" className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300">
+            <Link href="/pages/MyCart" className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300">
               <ShoppingCart className="w-5 h-5" />
             </Link>
           </div>

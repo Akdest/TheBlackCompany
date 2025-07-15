@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/app/components/Navbar";
-import { User, Mail, Calendar, MapPin, Lock, EyeOff, Eye, CheckSquare } from "lucide-react";
+import { User, Mail, Calendar, MapPin, Lock, EyeOff, Eye, CheckSquare, Phone } from "lucide-react";
 import Footer from "@/app/components/Footer";
 import Link from "next/link";
 
@@ -18,7 +18,9 @@ export default function CreateAccount() {
     address: "",
     pincode: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    phone: "",
+    otp: "",
   });
   const [dobError, setDobError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +29,10 @@ export default function CreateAccount() {
   // New error states for password validation
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [showPhoneError, setShowPhoneError] = useState(false);
+  const [otpError, setOtpError] = useState("");
+  const [showOtpError, setShowOtpError] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,6 +41,40 @@ export default function CreateAccount() {
     if (e.target.name === "password") setPasswordError("");
     if (e.target.name === "confirmPassword") setConfirmPasswordError("");
   };
+
+  // Phone number validation
+  const validatePhoneNumber = (phone: string) => {
+    const phoneRegex = /^\+?\d{10,15}$/; // Adjust regex as needed for your format
+    if (!phoneRegex.test(phone)) {
+      setPhoneError("Invalid phone number format. Use +91 followed by 10 digits.");
+      return false;
+    }
+    setPhoneError("");
+    return true;
+  }
+
+  const validateOtp = (otp: string) => {
+    const otpRegex = /^\d{6}$/; // Adjust regex as needed for your format
+    if (!otpRegex.test(otp)) {
+      setOtpError("Invalid OTP format. Please enter a 6-digit OTP.");
+      return false;
+    }
+    setOtpError("");
+    return true;
+  };
+
+
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const phone = e.target.value;
+    setFormData({ ...formData, phone });
+    if (!validatePhoneNumber(phone)) {
+      setShowPhoneError(true);
+    } else {
+      setShowPhoneError(false);
+    }
+  };
+
 
   // Password strength checker: minimum 8 chars, uppercase, lowercase, number, special char
   const validatePasswordStrength = (password: string) => {
@@ -77,7 +117,26 @@ export default function CreateAccount() {
         return;
       }
       // If all good, no next step beyond 5, so no setStep here
-    } else {
+    }
+    if (step === 6) {
+      if (!validatePhoneNumber(formData.phone)) {
+        setShowPhoneError(true);
+        return;
+      } else {
+        setShowPhoneError(false);
+      }
+    }
+    if (step === 7) {
+      if (!validateOtp(formData.otp)) {
+        setShowOtpError(true);
+        return;
+      } else {
+        setShowOtpError(false);
+      }
+    }
+    
+    
+    else {
       setStep(step + 1);
     }
   };
@@ -86,6 +145,14 @@ export default function CreateAccount() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Validate phone number before final submission
+    if (!validatePhoneNumber(formData.phone)) {
+      setShowPhoneError(true);
+      return;
+    } else {
+      setShowPhoneError(false);
+    }
 
     // Final validation on submit as a fallback
     const pwdError = validatePasswordStrength(formData.password);
@@ -198,7 +265,46 @@ const leftContentByStep: Record<number, { title: string; description: React.Reac
                 </li>
             </ul>
         )
-    }
+    },
+    6: {
+        title: "Final Touch",
+        description: (
+            <ul className="space-y-8 text-white/80 text-sm">
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Verify your phone for exclusive updates.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Stay connected, stay legendary.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Your journey is almost complete.
+                </li>
+            </ul>
+        )
+    },
+    7: {
+        title: "The Final Key",
+        description: (
+            <ul className="space-y-8 text-white/80 text-sm">
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Enter the OTP sent to your phone.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Unlock your account and your style.
+                </li>
+                <li className="flex items-start gap-2">
+                    <CheckSquare className="text-white/80 mt-0.5" size={18} />
+                    Welcome to The Black Company—your legend begins now.
+                </li>
+            </ul>
+        )
+    },
+
 };
 
   return (
@@ -241,8 +347,8 @@ const leftContentByStep: Record<number, { title: string; description: React.Reac
 
           {/* Right Column: Form */}
           <div className="p-10 flex flex-col h-full justify-center w-full bg-white/5 border border-white/10">
-            <div className="uppercase text-xs text-white/40 tracking-widest mb-4">
-              Step {step} of 5
+            <div className="uppercase text-sm text-white/40 tracking-widest mb-4">
+              Step {step} of 7
             </div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
               <h2 className="text-2xl font-semibold tracking-wide uppercase mb-4 text-white">
@@ -454,6 +560,72 @@ const leftContentByStep: Record<number, { title: string; description: React.Reac
                 )}
               </AnimatePresence>
 
+              {/*Phone Number Field*/}
+               <AnimatePresence>
+                {step === 6 && (
+                  <motion.div
+                    key="step6"
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -30 }}
+                    className=""
+                  >
+                    <div className="flex flex-col">
+                      <label htmlFor="address" className="text-sm text-white/60">
+                        <Phone className="text-white/50 inline-block mr-1" /> Phone Number
+                      </label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Phone Number"
+                        value={formData.phone}
+                        onChange={handlePhoneChange}
+                        className="bg-transparent border-b border-white/30 py-2 px-1 text-sm text-white placeholder-white/40 focus:outline-none"
+                        />
+                      {showPhoneError && (
+                        <span className="text-xs text-red-500 mt-1">{phoneError}</span>
+                      )}
+
+                    </div>
+                  
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              
+
+              {/*OTP Field*/}
+              <AnimatePresence>
+                {step === 7 && (
+                  <motion.div
+                    key="step7"
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -30 }}
+                    className="flex flex-col gap-2"
+                  >
+                    <label htmlFor="otp" className="text-sm text-white/60">
+                      <Lock className="text-white/50 inline-block mr-1" /> OTP
+                    </label>
+                     <input
+                          type="text"
+                          name="otp"
+                          placeholder="Enter OTP"
+                          value={formData.otp}
+                          onChange={(e) => {
+                            setFormData({ ...formData, otp: e.target.value });
+                            if (!validateOtp(e.target.value)) {
+                              setShowOtpError(true);
+                            } else {
+                              setShowOtpError(false);
+                            }
+                          }}
+                          className="bg-transparent border-b border-white/30 py-2 px-1 text-sm text-white placeholder-white/40 focus:outline-none"
+                        />
+
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               {/* Buttons */}
               <div className="flex justify-between pt-6">
                 {step > 1 && (
@@ -465,7 +637,7 @@ const leftContentByStep: Record<number, { title: string; description: React.Reac
                     Back
                   </button>
                 )}
-                {step < 5 ? (
+                {step < 7 ? (
                   <button
                     type="button"
                     onClick={nextStep}
@@ -477,6 +649,7 @@ const leftContentByStep: Record<number, { title: string; description: React.Reac
                  <Link href="/pages/ProfileDashboard">
                    <button
                      type="submit"
+                     
                      className="bg-white text-black px-6 py-2 uppercase tracking-wide font-semibold hover:bg-white/90"
                    >
                      Create Account

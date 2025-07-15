@@ -5,6 +5,7 @@ import SummerCollection from "./components/Summer";
 import WinterCollection from "./components/Winter";
 import GetInTouch from "./components/GetInTouch";
 import Footer from "./components/Footer";
+import Feature from "./components/Feature";
 
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
     
     <FallCollection/>
     <SummerCollection/>
+    <Feature/>
     <WinterCollection/>
     <GetInTouch/>
    

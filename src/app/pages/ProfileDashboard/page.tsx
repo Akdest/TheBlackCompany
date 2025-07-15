@@ -9,6 +9,7 @@ import Wishlist from "./components/Wishlist";
 import Addresses from "./components/Addresses";
 import Settings from "./components/Settings";
 import Support from "./components/Support";
+import Footer from "@/app/components/Footer";
 // You can create placeholder components for other sections similarly
 
 export default function ProfileDashboard() {
@@ -45,6 +46,7 @@ export default function ProfileDashboard() {
       <main className="pt-20 px-6 md:px-10 text-white font-['Poppins'] min-h-screen bg-black">
         {renderSection()}
       </main>
+      <Footer />
     </>
   );
 }

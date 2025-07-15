@@ -7,9 +7,9 @@ import Link from "next/link";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Shop", href: "#shop" },
+  { label: "Shop", href: "/pages/OurProducts" },
   { label: "Account", href: "/pages/Login" },
-  { label: "Cart", href: "#cart" },
+  { label: "Cart", href: "/pages/MyCart" },
   { label: "About", href: "#about" },
   { label: "Get In Touch", href: "#get-in-touch" },
 ];
@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-[100] font-['Poppins']">
+    <nav className="fixed top-0 left-0 w-full z-[100]">
       {/* Top Nav */}
       <div
         className={`flex justify-between items-center px-6 md:px-10 h-16 max-w-7xl mx-auto transition-all duration-300 
@@ -68,7 +68,7 @@ const Navbar: React.FC = () => {
 
   {/* Cart Button */}
   <Link
-    href="/cart"
+    href="/pages/MyCart"
     className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300"
   >
     <ShoppingCart className="w-5 h-5" />
