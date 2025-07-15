@@ -31,8 +31,8 @@ export default function CreateAccount() {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [showPhoneError, setShowPhoneError] = useState(false);
-  const [otpError, setOtpError] = useState("");
-  const [showOtpError, setShowOtpError] = useState(false);
+  const [, setOtpError] = useState("");
+  const [, setShowOtpError] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

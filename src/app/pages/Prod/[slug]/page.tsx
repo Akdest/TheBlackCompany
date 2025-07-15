@@ -15,7 +15,7 @@ export default function ProductDetails() {
   const router = useRouter();
   const product = products.find((p) => p.slug === slug);
 
-  const [cart, setCart] = useState<any[]>([]);
+const [cart, setCart] = useState<CartItem[]>([]);
   const [mainImage, setMainImage] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
   const [selectedSize, setSelectedSize] = useState<string>("");
@@ -59,16 +59,24 @@ export default function ProductDetails() {
       </main>
     );
   }
-   
+   type CartItem = {
+  id: number;
+  slug: string;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+  size: string;
+};
 
   
 
   const isInCart = cart.some((item) => item.slug === product.slug && item.size === selectedSize);
 
-  const syncCartWithLocalStorage = (updatedCart: any[]) => {
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-  };
+ const syncCartWithLocalStorage = (updatedCart: CartItem[]) => {
+  setCart(updatedCart);
+  localStorage.setItem("cart", JSON.stringify(updatedCart));
+};
 
   const addToCart = () => {
     if (!selectedSize) return;

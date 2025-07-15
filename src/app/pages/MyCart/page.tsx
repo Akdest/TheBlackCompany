@@ -9,8 +9,19 @@ import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
 
 export default function MyCart() {
-  const [cartItems, setCartItems] = useState<any[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
+type CartItem = {
+  id: number;
+  slug: string;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+  size: string;
+};
+
+  
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
     if (storedCart) {
