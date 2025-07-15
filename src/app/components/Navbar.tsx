@@ -34,44 +34,44 @@ const Navbar: React.FC = () => {
         ${isScrolled ? "bg-black/30 backdrop-blur-md border-b border-white/20 shadow-sm" : ""}`}
       >
        <div className="relative flex items-center w-full">
-            {/* Logo - left */}
-            <div className="text-white font-extrabold text-xl md:text-2xl cursor-pointer select-none uppercase leading-tight">
-              <Link href="/">The Black Company</Link>
-            </div>
+  {/* Logo - left */}
+  <div className="text-white font-extrabold text-xl md:text-2xl cursor-pointer select-none uppercase leading-tight">
+    <Link href="/">The Black Company</Link>
+  </div>
 
-            {/* Menu - center (absolute) */}
-            <div className="absolute left-1/2 -translate-x-1/2">
-              <button
-                aria-label="Toggle menu"
-                onClick={() => setSidebarOpen(true)}
-                className="flex flex-row items-center gap-1 w-auto h-10"
-              >
-                <div className="flex flex-col gap-1">
-                  <span className="block h-1 w-8 bg-white" />
-                  <span className="block h-1 w-8 bg-white" />
-                </div>
-                <span className="text-sm text-white font-semibold tracking-widest uppercase">
-                  Menu
-                </span>
-              </button>
-            </div>
+  {/* Menu - center on lg, left on sm/md */}
+  <div className="absolute lg:left-1/2 lg:-translate-x-1/2 right-0 ">
+    <button
+      aria-label="Toggle menu"
+      onClick={() => setSidebarOpen(true)}
+      className="flex flex-row items-center gap-1 w-auto h-10"
+    >
+      <div className="flex flex-col gap-1">
+        <span className="block h-1 w-8 bg-white" />
+        <span className="block h-1 w-8 bg-white" />
+      </div>
+      <span className="text-sm text-white font-semibold tracking-widest uppercase">
+        Menu
+      </span>
+    </button>
+  </div>
 
-            {/* Profile + Cart - right */}
-            <div className="hidden lg:flex items-center gap-4 ml-auto">
-              <Link
-                href="/pages/Login"
-                className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300"
-              >
-                <User className="w-5 h-5" />
-              </Link>
-              <Link
-                href="/pages/MyCart"
-                className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300"
-              >
-                <ShoppingCart className="w-5 h-5" />
-              </Link>
-            </div>
-          </div>
+  {/* Cart/Profile - right */}
+  <div className="hidden lg:flex items-center gap-4 ml-auto">
+    <Link
+      href="/pages/Login"
+      className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300"
+    >
+      <User className="w-5 h-5" />
+    </Link>
+    <Link
+      href="/pages/MyCart"
+      className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300"
+    >
+      <ShoppingCart className="w-5 h-5" />
+    </Link>
+  </div>
+</div>
 
       </div>
 

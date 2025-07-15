@@ -44,7 +44,7 @@ const NavbarProfileDash: React.FC<NavbarProfileDashProps> = ({ onSelectSection, 
             </div>
 
             {/* Menu - center (absolute) */}
-            <div className="absolute left-1/2 -translate-x-1/2">
+            <div className="absolute lg:left-1/2 lg:-translate-x-1/2 right-0">
               <button
                 aria-label="Toggle menu"
                 onClick={() => setSidebarOpen(true)}
