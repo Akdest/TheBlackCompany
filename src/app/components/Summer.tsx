@@ -33,7 +33,7 @@ export default function SummerCollection() {
         <div className="flex flex-col-reverse lg:flex-row justify-between items-end gap-8">
           {/* Right-Aligned Heading Now on Right */}
           <AnimateOnScroll>
-            <div className="lg:pt-28 w-full lg:w-[50]">
+            <div className="lg:pt-28 w-full lg:w-[45%]">
               <p className="text-xl text-white/80 text-left">
                 The Row&apos;s Fall Collection showcases timeless elegance and modern
                 minimalism with luxurious fabrics, clean lines, and understated
