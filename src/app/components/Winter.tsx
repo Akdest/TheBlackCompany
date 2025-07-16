@@ -29,7 +29,7 @@ export default function WinterCollection() {
             </p>
           </div> */}
           {/* Circular Discover Button */}
-              <Link href="#discover">
+              <Link href="/pages/OurProducts">
               <div className="relative w-24 h-24 md:w-36 md:h-36 lg:w-56 lg:h-56 flex items-center justify-center group">
                 <svg
                   className="absolute w-full h-full transition-transform duration-700 group-hover:rotate-180"
@@ -60,7 +60,7 @@ export default function WinterCollection() {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
          {/* — Left Product — */}
             <div className="flex flex-col items-center relative">
-               <Link href="#discover">
+               <Link href="/pages/OurProducts">
               <Image
                 src="/prod/hoodie.jpg"
                 alt="Olimpia Jacket"
@@ -105,7 +105,7 @@ export default function WinterCollection() {
 
 
             <div className="flex flex-col items-center">
-              <Link href="#discover">
+              <Link href="/pages/OurProducts">
               <Image
                 src="/prod/trouser.jpg"
                 alt="Balthus Polo"

@@ -46,7 +46,7 @@ export default function SummerCollection() {
           {/* — Middle Column — */}
           <div className="flex flex-col items-center gap-10">
             {/* Circular Discover Button */}
-            <Link href="#discover">
+            <Link href="/pages/OurProducts">
               <div className="relative w-56 h-56 flex items-center justify-center group">
                 <svg
                   className="absolute w-full h-full transition-transform duration-700 group-hover:rotate-180"
@@ -74,7 +74,7 @@ export default function SummerCollection() {
 
             {/* Middle Product */}
             <div className="flex flex-col items-center">
-              <Link href="#discover">
+              <Link href="/pages/OurProducts">
               <Image
                 src="/prod/cargo.jpg"
                 alt="Balthus Polo"
@@ -90,7 +90,7 @@ export default function SummerCollection() {
 
           {/* — Left Product (now Rightmost) — */}
           <div className="flex flex-col items-center relative">
-            <Link href="#discover">
+            <Link href="/pages/OurProducts">
             <Image
               src="/prod/tshirt.jpg"
               alt="Olimpia Jacket"

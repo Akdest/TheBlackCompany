@@ -1,13 +1,32 @@
 "use client";
 
 import Navbar from "@/app/components/Navbar";
-
 import Link from "next/link";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Footer from "@/app/components/Footer";
+import { useRouter } from "next/navigation";
+
+
+
 
 export default function Login() {
+  const router = useRouter();
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+
+
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  // Example form validation
+
+  // You can also add more logic here (API calls, loading states, etc.)
+  console.log("Logging in with:", email, password);
+
+  // Navigate to Profile Dashboard
+  router.push("/pages/ProfileDashboard");
+};
   return (
     <>
     <title>Login | The Black Company</title>
@@ -40,7 +59,7 @@ export default function Login() {
       </div>
       <div className="hidden md:block absolute bottom-10 right-0 h-[500px] w-[300px] z-10 opacity-40">
         <Image
-          src="/prod/hoodie.jpg"
+          src="/bg/black_men_model2.jpeg"
           alt="Side Model"
           fill
           className="object-cover object-top grayscale contrast-125 backdrop-blur-xl"
@@ -63,6 +82,7 @@ export default function Login() {
             <input
               type="email"
               id="email"
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="you@black.co"
               className="w-full bg-transparent border-b border-white/30 py-2 px-1 text-sm text-white placeholder-white/40 focus:outline-none focus:border-white transition"
             />
@@ -76,6 +96,7 @@ export default function Login() {
             <input
               type="password"
               id="password"
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               className="w-full bg-transparent border-b border-white/30 py-2 px-1 text-sm text-white placeholder-white/40 focus:outline-none focus:border-white transition"
             />
@@ -89,12 +110,14 @@ export default function Login() {
 
           {/* Login Button */}
         
-           <button
-            type="submit"
-            className="mt-6 bg-white text-black py-3 uppercase tracking-wide font-semibold hover:bg-black/40 hover:text-white transition cursor-pointer shadow-lg hover:shadow-md hover:shadow-white/10 "
-          >
-            <Link href="/pages/ProfileDashboard">Sign In</Link>
-          </button>
+          <button
+  type="submit"
+  onClick={handleSubmit}
+  className="mt-6 bg-white text-black py-3 uppercase tracking-wide font-semibold hover:bg-black/40 hover:text-white transition cursor-pointer shadow-lg hover:shadow-md hover:shadow-white/10"
+>
+  Sign In
+</button>
+
         </form>
 
         {/* Bottom Text */}
