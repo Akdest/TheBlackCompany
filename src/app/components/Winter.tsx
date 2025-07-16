@@ -59,29 +59,30 @@ export default function WinterCollection() {
         {/* ——— Gallery Grid ——— */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
          {/* — Left Product — */}
-<div className="flex flex-col items-center relative">
-  <Image
-    src="/prod/hoodie.jpg"
-    alt="Olimpia Jacket"
-    width={320}
-    height={700}
-    className="object-cover h-[500px] md:h-[500px]  z-10"
-  />
+            <div className="flex flex-col items-center relative">
+               <Link href="#discover">
+              <Image
+                src="/prod/hoodie.jpg"
+                alt="Olimpia Jacket"
+                width={320}
+                height={700}
+                className="object-cover h-[500px] md:h-[500px]  z-10"
+              />
 
-  <p className="mt-4 text-sm text-center z-10">
-   {products[1].name}
-  </p>
-
-  {/* Decorative Diamond Grid */}
-  <div className="hidden  absolute -bottom-32 z-0 md:flex  flex-col gap-1 items-center">
-    {/* First Row */}
-    <div className="flex gap-2">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <div
-          key={`row1-diamond-${i}`}
-          className="w-4 h-4 rotate-15 bg-white/10 border border-white/30"
-        />
-      ))}
+              <p className="mt-4 text-sm text-center hover:underline z-10">
+              {products[1].name}
+              </p>
+              </Link>
+              {/* Decorative Diamond Grid */}
+              <div className="hidden  absolute -bottom-32 z-0 md:flex  flex-col gap-1 items-center">
+                {/* First Row */}
+                <div className="flex gap-2">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <div
+                      key={`row1-diamond-${i}`}
+                      className="w-4 h-4 rotate-15 bg-white/10 border border-white/30"
+                    />
+                    ))}
     </div>
     {/* Second Row */}
     <div className="flex gap-2">
@@ -104,6 +105,7 @@ export default function WinterCollection() {
 
 
             <div className="flex flex-col items-center">
+              <Link href="#discover">
               <Image
                 src="/prod/trouser.jpg"
                 alt="Balthus Polo"
@@ -111,9 +113,10 @@ export default function WinterCollection() {
                 height={720}
                 className="object-cover h-[500px] md:h-[500px]"
               />
-              <p className="mt-4 text-sm  text-center">
+              <p className="mt-4 text-sm  text-center hover:underline">
                {products[7].name}
               </p>
+              </Link>
             </div>
           </div>
 

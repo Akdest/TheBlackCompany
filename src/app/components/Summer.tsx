@@ -74,6 +74,7 @@ export default function SummerCollection() {
 
             {/* Middle Product */}
             <div className="flex flex-col items-center">
+              <Link href="#discover">
               <Image
                 src="/prod/cargo.jpg"
                 alt="Balthus Polo"
@@ -81,12 +82,15 @@ export default function SummerCollection() {
                 height={720}
                 className="object-cover h-[500px] md:h-[500px]"
               />
-              <p className="mt-4 text-sm text-center">{products[6].name}</p>
+              <p className="mt-4 text-sm text-center hover:underline">{products[6].name}</p>
+              </Link>
             </div>
+            
           </div>
 
           {/* — Left Product (now Rightmost) — */}
           <div className="flex flex-col items-center relative">
+            <Link href="#discover">
             <Image
               src="/prod/tshirt.jpg"
               alt="Olimpia Jacket"
@@ -94,8 +98,8 @@ export default function SummerCollection() {
               height={700}
               className="object-cover h-[500px] md:h-[500px] z-10"
             />
-            <p className="mt-4 text-sm text-center z-10">{products[2].name}</p>
-
+            <p className="mt-4 text-sm text-center hover:underline z-10">{products[2].name}</p>
+            </Link>
             {/* Decorative Diamond Grid */}
             <div className="hidden absolute -bottom-32 z-0 md:flex flex-col gap-1 items-center">
               <div className="flex gap-2">
