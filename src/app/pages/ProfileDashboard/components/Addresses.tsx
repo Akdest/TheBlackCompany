@@ -62,7 +62,7 @@ export default function Addresses() {
   };
 
   return (
-    <main className="pt-20 px-6 md:px-10 text-white font-['Poppins'] bg-black flex justify-center">
+    <main className="pt-20 px-6 md:px-10 text-white  bg-black flex justify-center">
       <section className="max-w-7xl mx-auto bg-white/5 w-full">
        <h1 className="text-3xl font-bold uppercase mb-8 tracking-wide border-b border-white/20 p-6">
           My Addresses

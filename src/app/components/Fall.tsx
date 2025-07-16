@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
   import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { products } from "../data/prod";
 
 export default function FallCollection() {
   return (
@@ -33,18 +34,20 @@ export default function FallCollection() {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
          {/* — Left Product — */}
 <div className="flex flex-col items-center relative">
+  <Link href="#discover"> 
+  
   <Image
-    src="/prod/tshirt.jpg"
+    src="/prod/jacket.jpg"
     alt="Olimpia Jacket"
     width={320}
     height={700}
     className="object-cover h-[500px] md:h-[500px]  z-10"
   />
 
-  <p className="mt-4 text-sm text-center z-10">
-   Black T-Shirts
+  <p className="mt-4 text-md text-center hover:underline z-10">
+ {products[4].name}
   </p>
-
+  </Link>
   {/* Decorative Diamond Grid */}
   <div className="hidden  absolute -bottom-32 z-0 md:flex  flex-col gap-1 items-center">
     {/* First Row */}
@@ -102,17 +105,20 @@ export default function FallCollection() {
               </div>
             </Link>
             <div className="flex flex-col items-center">
+              
+              <Link href="#discover"> 
               <Image
-                src="/prod/prod2.jpg"
+                src="/prod/sneakers.jpg"
                 alt="Balthus Polo"
                 width={320}
                 height={720}
                 className="object-cover h-[500px] md:h-[500px]"
               />
-              <p className="mt-4 text-sm  text-center">
-               Black Shoes
+              <p className="mt-4 text-md text-center hover:underline">
+                {products[9].name}
          
               </p>
+              </Link>
             </div>
           </div>
 
@@ -126,11 +132,11 @@ export default function FallCollection() {
 
   {/* Image with gray bottom-left drop shadow */}
   <Image
-    src="/prod/prod4.jpg"
+    src="/prod/model_fall.jpg"
     alt="Hero Look"
     width={400}
     height={700}
-    className="object-cover mt-24 md:h-[700px] h-[500px] shadow-[ -15px_20px_30px_rgba(128,128,128,0.3)]"
+    className="object-cover mt-24 md:h-[700px] h-[500px]  grayscale hover:grayscale-0 transition-all duration-500 "
   />
 </div>
 

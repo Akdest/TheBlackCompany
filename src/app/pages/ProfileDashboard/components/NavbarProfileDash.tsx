@@ -32,7 +32,7 @@ const NavbarProfileDash: React.FC<NavbarProfileDashProps> = ({ onSelectSection, 
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-[100] font-['Poppins']">
+    <nav className="fixed top-0 left-0 w-full z-[100] ">
       <div
         className={`flex justify-between items-center px-6 md:px-10 h-16  mx-auto transition-all duration-300 
         ${isScrolled ? "bg-black/30 backdrop-blur-md border-b border-white/20 shadow-sm" : ""}`}
@@ -44,7 +44,7 @@ const NavbarProfileDash: React.FC<NavbarProfileDashProps> = ({ onSelectSection, 
             </div>
 
             {/* Menu - center (absolute) */}
-            <div className="absolute lg:left-1/2 lg:-translate-x-1/2 right-0">
+            <div className="absolute lg:left-1/2 right-0">
               <button
                 aria-label="Toggle menu"
                 onClick={() => setSidebarOpen(true)}
@@ -80,7 +80,7 @@ const NavbarProfileDash: React.FC<NavbarProfileDashProps> = ({ onSelectSection, 
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            className="fixed top-0 left-0 w-full h-screen bg-black/80 backdrop-blur-md text-white z-[150] font-['Poppins']"
+            className="fixed top-0 left-0 w-full h-screen bg-black/80 backdrop-blur-md text-white z-[150] "
           >
             <button
               className="absolute top-6 right-6 text-4xl lg:text-[4rem] font-bold text-white"

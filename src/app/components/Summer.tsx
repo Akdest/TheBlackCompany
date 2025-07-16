@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { products } from "../data/prod";
 
 export default function SummerCollection() {
   return (
@@ -11,7 +12,7 @@ export default function SummerCollection() {
         <span className="text-white/60 text-3xl relative top-10 left-6/10">(2025)</span>
 
         {/* — Title and Description Flipped — */}
-        <div className="flex flex-col lg:flex-row justify-between items-end gap-8">
+        <div className="flex flex-col-reverse lg:flex-row justify-between items-end gap-8">
           {/* Right-Aligned Heading Now on Right */}
           <div className="lg:pt-28 w-full lg:w-[40%]">
             <p className="text-xl text-white/80 text-left">
@@ -34,11 +35,11 @@ export default function SummerCollection() {
           {/* — Right Column (now Leftmost) — */}
           <div className="flex flex-col items-start gap-4">
             <Image
-              src="/prod/hoodie.jpg"
+              src="/prod/summer_model.jpg"
               alt="Hero Look"
               width={400}
               height={700}
-              className="object-cover md:h-[700px] h-[500px]"
+              className="object-cover md:h-[700px] h-[500px] grayscale hover:grayscale-0 transition-all duration-500"
             />
           </div>
 
@@ -74,13 +75,13 @@ export default function SummerCollection() {
             {/* Middle Product */}
             <div className="flex flex-col items-center">
               <Image
-                src="/prod/prod2.jpg"
+                src="/prod/cargo.jpg"
                 alt="Balthus Polo"
                 width={320}
                 height={720}
                 className="object-cover h-[500px] md:h-[500px]"
               />
-              <p className="mt-4 text-sm text-center">Black Shoes</p>
+              <p className="mt-4 text-sm text-center">{products[6].name}</p>
             </div>
           </div>
 
@@ -93,7 +94,7 @@ export default function SummerCollection() {
               height={700}
               className="object-cover h-[500px] md:h-[500px] z-10"
             />
-            <p className="mt-4 text-sm text-center z-10">Black T-Shirts</p>
+            <p className="mt-4 text-sm text-center z-10">{products[2].name}</p>
 
             {/* Decorative Diamond Grid */}
             <div className="hidden absolute -bottom-32 z-0 md:flex flex-col gap-1 items-center">

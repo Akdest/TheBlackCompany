@@ -38,7 +38,7 @@ const orders = [
 
 export default function MyOrders() {
   return (
-    <main className="pt-20 px-6 md:px-10 text-white font-['Poppins'] min-h-screen bg-black">
+    <main className="pt-20 px-6 md:px-10 text-white  min-h-screen bg-black">
       <section className="max-w-7xl bg-white/5 mx-auto">
         <h1 className="text-3xl font-bold uppercase mb-8 tracking-wide border-b border-white/20 p-6">
           My Orders

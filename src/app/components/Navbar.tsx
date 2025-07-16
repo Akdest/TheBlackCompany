@@ -30,51 +30,53 @@ const Navbar: React.FC = () => {
     <nav className="fixed top-0 left-0 w-full z-[100]">
       {/* Top Nav */}
       <div
-        className={`flex justify-center items-center px-6 md:px-10 h-16  mx-auto transition-all duration-300 
-        ${isScrolled ? "bg-black/30 backdrop-blur-md border-b border-white/20 shadow-sm" : ""}`}
+  className={`flex items-center px-6 md:px-10 h-16 mx-auto transition-all duration-300 
+  ${isScrolled ? "bg-black/30 backdrop-blur-md border-b border-white/20 shadow-sm" : ""}`}
+>
+  <div className="relative flex items-center w-full">
+    
+    {/* Logo - left always */}
+    <div className="text-white font-extrabold text-xl md:text-2xl cursor-pointer select-none uppercase leading-tight">
+      <Link href="/">The Black Company</Link>
+    </div>
+
+    {/* Menu */}
+    <div className="absolute lg:relative right-0 lg:right-auto lg:mx-auto ">
+      <button
+        aria-label="Toggle menu"
+        onClick={() => setSidebarOpen(true)}
+        className="flex flex-row items-center gap-1 w-auto h-10"
       >
-       <div className="relative flex items-center w-full">
-  {/* Logo - left */}
-  <div className="text-white font-extrabold text-xl md:text-2xl cursor-pointer select-none uppercase leading-tight">
-    <Link href="/">The Black Company</Link>
-  </div>
+        <div className="flex flex-col gap-1">
+          <span className="block h-1 w-8 bg-white" />
+          <span className="block h-1 w-8 bg-white" />
+        </div>
+        <span className="text-sm text-white font-semibold tracking-widest uppercase">
+          Menu
+        </span>
+      </button>
+    </div>
 
-  {/* Menu - center on lg, left on sm/md */}
-  <div className="absolute lg:left-1/2 lg:-translate-x-1/2 right-0 ">
-    <button
-      aria-label="Toggle menu"
-      onClick={() => setSidebarOpen(true)}
-      className="flex flex-row items-center gap-1 w-auto h-10"
-    >
-      <div className="flex flex-col gap-1">
-        <span className="block h-1 w-8 bg-white" />
-        <span className="block h-1 w-8 bg-white" />
-      </div>
-      <span className="text-sm text-white font-semibold tracking-widest uppercase">
-        Menu
-      </span>
-    </button>
-  </div>
-
-  {/* Cart/Profile - right */}
-  <div className="hidden lg:flex items-center gap-4 ml-auto">
-    <Link
-      href="/pages/Login"
-      className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300"
-    >
-      <User className="w-5 h-5" />
-    </Link>
-    <Link
-      href="/pages/MyCart"
-      className="px-4 py-2 text-white border-1 border-white hover:bg-white hover:text-black transition duration-300"
-    >
-      <ShoppingCart className="w-5 h-5" />
-    </Link>
+    {/* Profile + Cart - visible only on lg */}
+    <div className="hidden lg:flex items-center gap-4 ml-auto">
+      <Link
+        href="/pages/Login"
+        className="px-4 py-2 text-white border border-white hover:bg-white hover:text-black transition duration-300"
+      >
+        <User className="w-5 h-5" />
+      </Link>
+      <Link
+        href="/pages/MyCart"
+        className="px-4 py-2 text-white border border-white hover:bg-white hover:text-black transition duration-300"
+      >
+        <ShoppingCart className="w-5 h-5" />
+      </Link>
+    </div>
   </div>
 </div>
 
-      </div>
 
+    
       {/* Sidebar */}
       <AnimatePresence>
         {sidebarOpen && (
@@ -83,7 +85,7 @@ const Navbar: React.FC = () => {
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            className="fixed top-0 left-0 w-full h-screen bg-black/80 backdrop-blur-md text-white z-[150] font-['Poppins']"
+            className="fixed top-0 left-0 w-full h-screen bg-black/80 backdrop-blur-md text-white z-[150] ]"
           >
             {/* Close Button */}
             <button

@@ -43,7 +43,7 @@ export default function ProfileDashboard() {
 
       <NavbarProfileDash onSelectSection={setActiveSection} activeSection={activeSection} />
 
-      <main className="pt-20 px-6 md:px-10 text-white font-['Poppins'] min-h-screen bg-black">
+      <main className="pt-20 px-6 md:px-10 text-white  min-h-screen bg-black">
         {renderSection()}
       </main>
       <Footer />

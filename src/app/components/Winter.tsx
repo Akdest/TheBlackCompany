@@ -3,15 +3,16 @@ import React from "react";
 import Image from "next/image";
   import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { products } from "../data/prod";
 
 export default function WinterCollection() {
   return (
     <section className="min-h-screen bg-black text-white px-8 py-16 flex flex-col items-center gap-12">
       
       <div className="w-full max-w-7xl">
-       <span className="text-white/60 text-3xl relative top-8 left-1/3">(2025)</span>
-        {/* ——— Title and Description in One Row ——— */}
-        <div className="flex flex-col lg:flex-row justify-between items-start gap-8">
+
+        {/* — Title and Description Flipped — */}
+        <div className="flex flex-row justify-between items-start gap-8">
           {/* Left Heading */}
           <div>
             <h1 className="text-4xl lg:text-[6rem] font-bold leading-tight">
@@ -29,7 +30,7 @@ export default function WinterCollection() {
           </div> */}
           {/* Circular Discover Button */}
               <Link href="#discover">
-              <div className="relative w-56 h-56 flex items-center justify-center group">
+              <div className="relative w-24 h-24 md:w-36 md:h-36 lg:w-56 lg:h-56 flex items-center justify-center group">
                 <svg
                   className="absolute w-full h-full transition-transform duration-700 group-hover:rotate-180"
                   viewBox="0 0 100 100"
@@ -50,7 +51,7 @@ export default function WinterCollection() {
                   </text>
                 </svg>
 
-                <ArrowUpRight className="w-20 h-20 text-white z-10 transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-45" />
+                <ArrowUpRight className="w-12 h-12 md:w-20 md:h-20 text-white z-10 transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-45" />
                </div>
               </Link>
         </div>
@@ -60,7 +61,7 @@ export default function WinterCollection() {
          {/* — Left Product — */}
 <div className="flex flex-col items-center relative">
   <Image
-    src="/prod/women-blazer.jpg"
+    src="/prod/hoodie.jpg"
     alt="Olimpia Jacket"
     width={320}
     height={700}
@@ -68,7 +69,7 @@ export default function WinterCollection() {
   />
 
   <p className="mt-4 text-sm text-center z-10">
-   Black Blazers
+   {products[1].name}
   </p>
 
   {/* Decorative Diamond Grid */}
@@ -104,15 +105,14 @@ export default function WinterCollection() {
 
             <div className="flex flex-col items-center">
               <Image
-                src="/prod/pant.jpg"
+                src="/prod/trouser.jpg"
                 alt="Balthus Polo"
                 width={320}
                 height={720}
                 className="object-cover h-[500px] md:h-[500px]"
               />
               <p className="mt-4 text-sm  text-center">
-               Black Pants
-         
+               {products[7].name}
               </p>
             </div>
           </div>
@@ -121,11 +121,11 @@ export default function WinterCollection() {
           <div className="flex flex-col items-end gap-4">
             
             <Image
-              src="/prod/prod4.jpg"
+              src="/prod/winter_model.jpg"
               alt="Hero Look"
               width={400}
               height={700}
-              className="object-cover  md:h-[700px] h-[500px]"
+              className="object-cover  md:h-[700px] h-[500px] grayscale hover:grayscale-0 transition-all duration-500"
             />
           </div>
         </div>

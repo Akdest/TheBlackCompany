@@ -10,7 +10,7 @@ export default function Feature() {
   {/* Background image only inside section */}
   <div className="fixed inset-0 -z-10">
     <Image
-      src="/bg/blk_model1.jpg"
+      src="/bg/w_map2.jpg"
       alt="Background"
       fill
       style={{ objectFit: "cover" }}

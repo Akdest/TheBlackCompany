@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white w-full px-6 py-12 md:px-16 font-['Poppins']">
+    <footer className="bg-black text-white w-full px-6 py-12 md:px-16 ">
       
 
       {/* Bottom Bar */}
