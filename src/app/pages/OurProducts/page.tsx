@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { products, Product } from "@/app/data/prod";
+import { products } from "@/app/data/prod";
 import Navbar from "@/app/components/Navbar";
 
 const categories = Array.from(new Set(products.map((p) => p.category)));

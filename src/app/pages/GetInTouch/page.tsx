@@ -28,7 +28,7 @@ export default function GetInTouch() {
         </h1>
 
         <p className="text-center max-w-3xl mx-auto text-lg md:text-xl text-white/70 leading-relaxed">
-          Whether you're seeking custom collaborations, press inquiries, or just feel the pull of the shadows — we&apos;re always ready to connect. The Black Company thrives on conversations that challenge convention and create culture.
+          Whether you&apos;re seeking custom collaborations, press inquiries, or just feel the pull of the shadows — we&apos;re always ready to connect. The Black Company thrives on conversations that challenge convention and create culture.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-sm md:text-base tracking-wide">

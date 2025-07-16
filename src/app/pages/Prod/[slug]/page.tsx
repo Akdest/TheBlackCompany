@@ -129,7 +129,7 @@ const [cart, setCart] = useState<CartItem[]>([]);
           />  ) : null}
         </div>
         <div className="w-full lg:w-1/2 space-y-6">
-          <div className="w-full h-[500px] relative rounded-xl overflow-hidden border border-white/10">
+          <div className="w-full h-[500px] relative  overflow-hidden border border-white/10">
             {mainImage ? (
               <Image src={mainImage} alt={product.name} fill className="object-cover" />
             ) : null}
@@ -211,7 +211,7 @@ const [cart, setCart] = useState<CartItem[]>([]);
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={isInCart ? removeFromCart : addToCart}
-              className={`flex-1 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all ${
+              className={`flex-1 py-3  font-semibold flex items-center justify-center gap-2 transition-all ${
                 isInCart ? "bg-white text-black" : "bg-black border border-white text-white"
               }`}
             >
@@ -221,7 +221,7 @@ const [cart, setCart] = useState<CartItem[]>([]);
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={handleCheckout}
-              className="flex-1 py-3 rounded-lg border border-white text-white hover:bg-white hover:text-black font-semibold flex items-center justify-center gap-2 transition"
+              className="flex-1 py-3  border border-white text-white hover:bg-white hover:text-black font-semibold flex items-center justify-center gap-2 transition"
             >
               Buy Now
             </motion.button>
