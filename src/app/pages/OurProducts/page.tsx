@@ -111,7 +111,7 @@ export default function ProductsPage() {
                   type="checkbox"
                   checked={showNewArrivalsOnly}
                   onChange={() => setShowNewArrivalsOnly((prev) => !prev)}
-                  className="sr-only" // Hide native checkbox
+                  className="sr-only"
                 />
                 <div
                   className={`w-12 h-6 shadow-inner transition-colors duration-300 
@@ -127,45 +127,40 @@ export default function ProductsPage() {
             </div>
           </div>
 
-          {/* Wrap these two filters in a container */}
-<div className="flex flex-col lg:flex-row lg:items-center lg:gap-8 gap-6 max-w-4xl mx-auto mb-8 bg-white/20 backdrop-blur:md backdrop-blur:md p-2">
-  {/* Price Filter */}
-  <div className="flex items-center gap-4 max-w-md ">
-    <label htmlFor="priceRange" className="font-semibold uppercase text-white/70 whitespace-nowrap">
-      Max Price: ₹{maxPrice.toLocaleString()}
-    </label>
-    <input
-      id="priceRange"
-      type="range"
-      min={Math.min(...products.map((p) => p.price))}
-      max={Math.max(...products.map((p) => p.price))}
-      value={maxPrice}
-      onChange={(e) => setMaxPrice(Number(e.target.value))}
-      className="w-full cursor-pointer accent-white"
-    />
-  </div>
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-8 gap-6 max-w-4xl mx-auto mb-8 bg-white/20 backdrop-blur:md p-2">
+            <div className="flex items-center gap-4 max-w-md ">
+              <label htmlFor="priceRange" className="font-semibold uppercase text-white/70 whitespace-nowrap">
+                Max Price: ₹{maxPrice.toLocaleString()}
+              </label>
+              <input
+                id="priceRange"
+                type="range"
+                min={Math.min(...products.map((p) => p.price))}
+                max={Math.max(...products.map((p) => p.price))}
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(Number(e.target.value))}
+                className="w-full cursor-pointer accent-white"
+              />
+            </div>
 
-  {/* Sort Dropdown */}
-  <div className="flex items-center gap-4 max-w-xs  ">
-    <label htmlFor="sortBy" className="font-semibold uppercase text-white/70 whitespace-nowrap">
-      Sort By:
-    </label>
-    <select
-      id="sortBy"
-      value={sortBy || ""}
-      onChange={(e) => setSortBy(e.target.value as any)}
-      className="bg-black border border-white/30 text-white py-1 px-3 focus:outline-none focus:ring-2 focus:ring-white/60"
-    >
-      <option value="">None</option>
-      <option value="price-asc">Price: Low to High</option>
-      <option value="price-desc">Price: High to Low</option>
-      <option value="name-asc">Name: A to Z</option>
-    </select>
-  </div>
-</div>
+            <div className="flex items-center gap-4 max-w-xs  ">
+              <label htmlFor="sortBy" className="font-semibold uppercase text-white/70 whitespace-nowrap">
+                Sort By:
+              </label>
+              <select
+                id="sortBy"
+                value={sortBy || ""}
+                onChange={(e) => setSortBy(e.target.value as "price-asc" | "price-desc" | "name-asc" | null)}
+                className="bg-black border border-white/30 text-white py-1 px-3 focus:outline-none focus:ring-2 focus:ring-white/60"
+              >
+                <option value="">None</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="name-asc">Name: A to Z</option>
+              </select>
+            </div>
+          </div>
 
-
-          {/* Products Grid */}
           {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8">
               {filteredProducts.map((product) => (

@@ -14,7 +14,6 @@ export default function Feature() {
   const [ref1, inView1] = useInView({ threshold: 0.2 });
   const [ref2, inView2] = useInView({ threshold: 0.2 });
   const [ref3, inView3] = useInView({ threshold: 0.2 });
-  const [ref4, inView4] = useInView({ threshold: 0.2 });
 
   return (
     <section className="relative w-full text-white overflow-hidden min-h-screen py-20 px-6 md:px-12">

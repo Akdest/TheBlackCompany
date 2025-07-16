@@ -18,7 +18,6 @@ export default function WinterCollection() {
   const [ref2, inView2] = useInView({ threshold: 0.2 });
   const [ref3, inView3] = useInView({ threshold: 0.2 });
   const [ref4, inView4] = useInView({ threshold: 0.2 });
-  const [ref5, inView5] = useInView({ threshold: 0.2 });
 
   return (
     <section className="min-h-screen bg-black text-white px-8 py-16 flex flex-col items-center gap-12">
