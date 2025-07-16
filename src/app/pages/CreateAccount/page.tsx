@@ -318,11 +318,11 @@ const leftContentByStep: Record<number, { title: string; description: React.Reac
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/prod/hoodie.jpg"
+            src="/bg/street.jpg"
             alt="Background"
             fill
             priority
-            className="object-cover opacity-20"
+            className="object-cover opacity-20 grayscale"
           />
         
         </div>

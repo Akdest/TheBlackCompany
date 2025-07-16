@@ -101,8 +101,8 @@ const NavbarProfileDash: React.FC<NavbarProfileDashProps> = ({ onSelectSection, 
                     className={`text-4xl lg:text-[4rem] tracking-wider font-extrabold transition duration-300 relative snap-start
                       ${
                         activeSection === id
-                          ? "text-white underline decoration-4 underline-offset-8"
-                          : "hover:text-gray-300"
+                          ? " hover:text-gray-300 underline decoration-4 underline-offset-8"
+                          : "text-white"
                       }
                     `}
                     initial="rest"

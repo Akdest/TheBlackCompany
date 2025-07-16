@@ -13,7 +13,7 @@ import { ArrowLeft, Plus, Minus } from "lucide-react";
 export default function ProductDetails() {
   const { slug } = useParams();
   const router = useRouter();
-  const product = products.find((p) => p.slug === slug);
+ const product = products.find((p) => p.slug === slug);
 
 const [cart, setCart] = useState<CartItem[]>([]);
   const [mainImage, setMainImage] = useState<string | null>(null);
@@ -122,13 +122,11 @@ const [cart, setCart] = useState<CartItem[]>([]);
 
       <div className=" text-white px-6 py-20 min-h-screen flex flex-col lg:flex-row gap-10">
         <div className="absolute inset-0 -z-10">
-          <Image
-            src="/prod/hoodie.jpg"
-            alt="Product Background"
-            fill
+          {mainImage ? (
+              <Image src={mainImage} alt={product.name} fill 
             className="object-cover opacity-10"
             priority
-          />
+          />  ) : null}
         </div>
         <div className="w-full lg:w-1/2 space-y-6">
           <div className="w-full h-[500px] relative rounded-xl overflow-hidden border border-white/10">

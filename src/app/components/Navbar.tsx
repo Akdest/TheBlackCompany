@@ -10,8 +10,8 @@ const navLinks = [
   { label: "Shop", href: "/pages/OurProducts" },
   { label: "Account", href: "/pages/Login" },
   { label: "Cart", href: "/pages/MyCart" },
-  { label: "About", href: "#about" },
-  { label: "Get In Touch", href: "#get-in-touch" },
+  { label: "About", href: "/pages/About" },
+  { label: "Get In Touch", href: "/pages/GetInTouch" },
 ];
 
 const Navbar: React.FC = () => {
@@ -104,7 +104,7 @@ const Navbar: React.FC = () => {
                     key={label}
                     href={href}
                     onClick={() => setSidebarOpen(false)}
-                    className="text-4xl lg:text-[4rem] tracking-wider font-extrabold hover:text-gray-300 transition duration-300 relative snap-start"
+                    className="text-4xl lg:text-[4rem] tracking-wider font-extrabold hover:text-white text-gray-300 transition duration-300 relative snap-start"
                     initial="rest"
                     whileHover="hover"
                     animate="rest"

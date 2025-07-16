@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import ExclusiveStrip from "./Strip";
+import Link from "next/link";
 
 export default function GetInTouch() {
   return (
@@ -21,10 +22,11 @@ export default function GetInTouch() {
       <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
         {/* Left block */}
         <div className="col-span-1 md:col-span-2 flex flex-col gap-6">
-          <div className="uppercase text-sm tracking-wide text-white/80">
+          <Link href="/pages/GetInTouch">
+          <div className="uppercase text-sm tracking-wide text-white/60 hover:text-white hover:underline">
             Get In Touch ↗
           </div>
-
+          </Link>
           <div className="flex items-start gap-6">
             <h1 className="text-6xl lg:text-[8rem] font-extrabold leading-none">
               <span className="block">STAY</span>
