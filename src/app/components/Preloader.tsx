@@ -30,7 +30,7 @@ export default function Preloader({ onFinish }: { onFinish: () => void }) {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="flex text-4xl md:text-6xl font-extrabold tracking-widest uppercase text-white">
+        <div className="flex text-2xl md:text-6xl font-extrabold tracking-widest uppercase text-white">
           {text.split("").map((char, i) => (
             <motion.span
               key={i}

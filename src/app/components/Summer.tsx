@@ -26,7 +26,7 @@ export default function SummerCollection() {
     <section className="min-h-screen bg-black text-white px-8 py-16 flex flex-col items-center gap-12">
       <div className="w-full max-w-7xl">
         <AnimateOnScroll>
-          <span className="text-white/60 text-3xl relative top-10 left-[60%]">(2025)</span>
+          <span className="text-white/60 text-3xl relative top-10 md:left-[60%] left-[30%]">(2025)</span>
         </AnimateOnScroll>
 
         {/* — Title and Description Flipped — */}

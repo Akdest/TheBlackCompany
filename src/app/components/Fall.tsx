@@ -28,7 +28,7 @@ export default function FallCollection() {
           variants={fadeUp}
           initial="hidden"
           animate={inView1 ? "visible" : "hidden"}
-          className="text-white/60 text-3xl relative top-8 left-1/3"
+          className="text-white/60 text-3xl relative top-8 left-1/2 md:left-1/3"
         >
           (2025)
         </motion.span>

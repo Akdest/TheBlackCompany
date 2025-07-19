@@ -9,7 +9,7 @@ export default function ExclusiveStrip() {
   
            {/* Decorative Strip */}
       <div className="absolute bottom-0 left-0 w-full h-full bg-white flex items-center justify-center">
-        <div className="whitespace-nowrap animate-marquee text-black text-8xl lg:text-[7rem] font-bold uppercase tracking-wider">
+        <div className="whitespace-nowrap animate-marquee text-black text-4xl lg:text-[7rem] font-bold uppercase tracking-wider">
           {Array(2).fill("EXCLUSIVE").join("  •  ")}
         </div>
       </div>
