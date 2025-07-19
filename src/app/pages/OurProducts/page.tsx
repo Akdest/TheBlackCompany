@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { products } from "@/app/data/prod";
@@ -16,7 +16,39 @@ export default function ProductsPage() {
   const [maxPrice, setMaxPrice] = useState(Math.max(...products.map((p) => p.price)));
   const [sortBy, setSortBy] = useState<"price-asc" | "price-desc" | "name-asc" | null>(null);
 
-  // Filtering logic
+  const [cart, setCart] = useState<any[]>([]);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("cart");
+    if (stored) {
+      setCart(JSON.parse(stored));
+    }
+  }, []);
+
+  const isProductInCart = (product: typeof products[0]) => {
+    return cart.some((item) => item.id === product.id);
+  };
+
+  const addToCart = (product: typeof products[0]) => {
+    const updatedCart = [...cart];
+    const index = updatedCart.findIndex((item) => item.id === product.id);
+
+    if (index !== -1) {
+      updatedCart[index].quantity += 1;
+    } else {
+      updatedCart.push({ ...product, quantity: 1 });
+    }
+
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+  const removeFromCart = (product: typeof products[0]) => {
+    const updatedCart = cart.filter((item) => item.id !== product.id);
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
   let filteredProducts = products.filter((product) => {
     if (selectedCategory && product.category !== selectedCategory) return false;
     if (selectedSeason && product.season !== selectedSeason) return false;
@@ -25,20 +57,18 @@ export default function ProductsPage() {
     return true;
   });
 
-  // Sorting logic
   if (sortBy === "price-asc") {
-    filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+    filteredProducts.sort((a, b) => a.price - b.price);
   } else if (sortBy === "price-desc") {
-    filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+    filteredProducts.sort((a, b) => b.price - a.price);
   } else if (sortBy === "name-asc") {
-    filteredProducts = filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   return (
     <>
       <Navbar />
       <main className="relative min-h-screen bg-black text-white px-6 py-16 overflow-hidden">
-        {/* Background Image */}
         <div className="absolute inset-0 -z-10">
           <Image
             src="/bg/blk_model1.jpg"
@@ -56,7 +86,7 @@ export default function ProductsPage() {
 
           {/* Filters */}
           <div className="flex flex-wrap gap-6 mb-8 items-center bg-white/20 backdrop-blur:md p-6">
-            {/* Category Filter */}
+            {/* Category */}
             <div className="flex items-center gap-2 flex-wrap">
               <span className="font-semibold uppercase text-white/70">Category:</span>
               <button
@@ -80,7 +110,7 @@ export default function ProductsPage() {
               ))}
             </div>
 
-            {/* Season Filter */}
+            {/* Season */}
             <div className="flex items-center gap-2 flex-wrap">
               <span className="font-semibold uppercase text-white/70">Season:</span>
               <button
@@ -105,7 +135,7 @@ export default function ProductsPage() {
             </div>
 
             {/* New Arrivals Toggle */}
-            <div className="flex items-center gap-2 ">
+            <div className="flex items-center gap-2">
               <label className="relative inline-flex items-center cursor-pointer select-none">
                 <input
                   type="checkbox"
@@ -115,20 +145,21 @@ export default function ProductsPage() {
                 />
                 <div
                   className={`w-12 h-6 shadow-inner transition-colors duration-300 
-                    ${showNewArrivalsOnly ? "bg-white" : "bg-white/20 backdrop-blur:md"}
-                    hover:bg-white/70`}
+                  ${showNewArrivalsOnly ? "bg-white" : "bg-white/20 backdrop-blur:md"}
+                  hover:bg-white/70`}
                 />
                 <div
-                  className={`dot absolute left-1 top-1 w-4 h-4  shadow-md transition-transform duration-300
-                    ${showNewArrivalsOnly ? "translate-x-6 bg-black" : "translate-x-0 bg-white"}`}
+                  className={`dot absolute left-1 top-1 w-4 h-4 shadow-md transition-transform duration-300
+                  ${showNewArrivalsOnly ? "translate-x-6 bg-black" : "translate-x-0 bg-white"}`}
                 />
                 <span className="ml-3 text-white/70 font-semibold uppercase">New Arrivals</span>
               </label>
             </div>
           </div>
 
+          {/* Price and Sort */}
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-8 gap-6 max-w-4xl mx-auto mb-8 bg-white/20 backdrop-blur:md p-2">
-            <div className="flex items-center gap-4 max-w-md ">
+            <div className="flex items-center gap-4 max-w-md">
               <label htmlFor="priceRange" className="font-semibold uppercase text-white/70 whitespace-nowrap">
                 Max Price: ₹{maxPrice.toLocaleString()}
               </label>
@@ -143,14 +174,14 @@ export default function ProductsPage() {
               />
             </div>
 
-            <div className="flex items-center gap-4 max-w-xs  ">
+            <div className="flex items-center gap-4 max-w-xs">
               <label htmlFor="sortBy" className="font-semibold uppercase text-white/70 whitespace-nowrap">
                 Sort By:
               </label>
               <select
                 id="sortBy"
                 value={sortBy || ""}
-                onChange={(e) => setSortBy(e.target.value as "price-asc" | "price-desc" | "name-asc" | null)}
+                onChange={(e) => setSortBy(e.target.value as any)}
                 className="bg-black border border-white/30 text-white py-1 px-3 focus:outline-none focus:ring-2 focus:ring-white/60"
               >
                 <option value="">None</option>
@@ -161,6 +192,7 @@ export default function ProductsPage() {
             </div>
           </div>
 
+          {/* Product Grid */}
           {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8">
               {filteredProducts.map((product) => (
@@ -183,12 +215,30 @@ export default function ProductsPage() {
                     <p className="text-white text-lg font-mono">
                       ₹{product.price.toLocaleString()}
                     </p>
-                    <Link
-                      href={`/pages/Prod/${product.slug}`}
-                      className="inline-block mt-2 px-4 py-2 border border-white/20 hover:border-white text-sm hover:bg-white hover:text-black transition-all"
-                    >
-                      View Product
-                    </Link>
+
+                    <div className="flex gap-4 mt-2">
+                      <Link
+                        href={`/pages/Prod/${product.slug}`}
+                        className="inline-block px-4 py-2 border border-white/20 hover:border-white text-sm hover:bg-white hover:text-black transition-all"
+                      >
+                        View Product
+                      </Link>
+
+                      <button
+                        onClick={() =>
+                          isProductInCart(product)
+                            ? removeFromCart(product)
+                            : addToCart(product)
+                        }
+                        className={`flex-1 py-2 text-sm font-semibold flex items-center justify-center gap-2 transition-all ${
+                          isProductInCart(product)
+                            ? "bg-white text-black border border-white"
+                            : " text-white border border-white/20 hover:border-white"
+                        }`}
+                      >
+                        {isProductInCart(product) ? "Remove from Cart" : "Add to Cart"}
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
