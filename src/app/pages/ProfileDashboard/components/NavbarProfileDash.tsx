@@ -44,21 +44,22 @@ const NavbarProfileDash: React.FC<NavbarProfileDashProps> = ({ onSelectSection, 
             </div>
 
             {/* Menu - center (absolute) */}
-            <div className="absolute lg:left-1/2 right-0">
-              <button
-                aria-label="Toggle menu"
-                onClick={() => setSidebarOpen(true)}
-                className="flex flex-row items-center gap-1 w-auto h-10"
-              >
-                <div className="flex flex-col gap-1">
-                  <span className="block h-1 w-8 bg-white" />
-                  <span className="block h-1 w-8 bg-white" />
-                </div>
-                <span className="text-sm text-white font-semibold tracking-widest uppercase">
-                  Menu
-                </span>
-              </button>
-            </div>
+           <div className="absolute lg:relative right-0 lg:right-auto lg:mx-auto ">
+      <button
+        aria-label="Toggle menu"
+        onClick={() => setSidebarOpen(true)}
+        className="flex flex-row items-center gap-1 w-auto h-10"
+      >
+        <div className="flex flex-col gap-1">
+          <span className="block h-1 w-8 bg-white" />
+          <span className="block h-1 w-8 bg-white" />
+        </div>
+        <span className="text-sm text-white font-semibold tracking-widest uppercase">
+          Menu
+        </span>
+      </button>
+    </div>
+
 
             {/*Cart - right */}
             <div className="hidden lg:flex items-center gap-4 ml-auto">

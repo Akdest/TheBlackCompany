@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
@@ -8,14 +7,25 @@ import { useEffect, useState } from "react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { motion } from "framer-motion";
-import { ArrowLeft, Plus, Minus } from "lucide-react";
+import { ArrowLeft, Plus, Minus, Heart } from "lucide-react";
+
+type CartItem = {
+  id: number;
+  slug: string;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+  size: string;
+};
 
 export default function ProductDetails() {
   const { slug } = useParams();
   const router = useRouter();
- const product = products.find((p) => p.slug === slug);
+  const product = products.find((p) => p.slug === slug);
 
-const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [wishlist, setWishlist] = useState<CartItem[]>([]);
   const [mainImage, setMainImage] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
   const [selectedSize, setSelectedSize] = useState<string>("");
@@ -29,7 +39,6 @@ const [cart, setCart] = useState<CartItem[]>([]);
         const parsed = JSON.parse(storedCart);
         if (Array.isArray(parsed)) {
           setCart(parsed);
-
           const match = parsed.find((item) => item.slug === product?.slug);
           if (match) {
             setSelectedSize(match.size);
@@ -40,11 +49,27 @@ const [cart, setCart] = useState<CartItem[]>([]);
         setCart([]);
       }
     }
+
+    const storedWishlist = localStorage.getItem("wishlist");
+    if (storedWishlist) {
+      try {
+        const parsed = JSON.parse(storedWishlist);
+        if (Array.isArray(parsed)) {
+          setWishlist(parsed);
+        }
+      } catch {
+        setWishlist([]);
+      }
+    }
   }, [product]);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
+
+  useEffect(() => {
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }, [wishlist]);
 
   useEffect(() => {
     if (!selectedSize && Array.isArray(product?.sizes) && product.sizes.length > 0) {
@@ -59,28 +84,25 @@ const [cart, setCart] = useState<CartItem[]>([]);
       </main>
     );
   }
-   type CartItem = {
-  id: number;
-  slug: string;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-  size: string;
-};
 
-  
+  const isInCart = cart.some(
+    (item) => item.slug === product.slug && item.size === selectedSize
+  );
 
-  const isInCart = cart.some((item) => item.slug === product.slug && item.size === selectedSize);
+  const isWishlisted = wishlist.some(
+    (item) => item.slug === product.slug && item.size === selectedSize
+  );
 
- const syncCartWithLocalStorage = (updatedCart: CartItem[]) => {
-  setCart(updatedCart);
-  localStorage.setItem("cart", JSON.stringify(updatedCart));
-};
+  const syncCartWithLocalStorage = (updatedCart: CartItem[]) => {
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
 
   const addToCart = () => {
     if (!selectedSize) return;
-    const exists = cart.find((item) => item.slug === product.slug && item.size === selectedSize);
+    const exists = cart.find(
+      (item) => item.slug === product.slug && item.size === selectedSize
+    );
     if (exists) {
       const updatedCart = cart.map((item) =>
         item.slug === product.slug && item.size === selectedSize
@@ -109,6 +131,28 @@ const [cart, setCart] = useState<CartItem[]>([]);
     syncCartWithLocalStorage(updatedCart);
   };
 
+  const toggleWishlist = () => {
+    if (!product) return;
+
+    if (isWishlisted) {
+      const updatedWishlist = wishlist.filter(
+        (item) => !(item.slug === product.slug && item.size === selectedSize)
+      );
+      setWishlist(updatedWishlist);
+    } else {
+      const newItem = {
+        id: product.id,
+        slug: product.slug,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        quantity: 1,
+        size: selectedSize,
+      };
+      setWishlist([...wishlist, newItem]);
+    }
+  };
+
   const handleCheckout = () => {
     router.push("/pages/Checkout");
   };
@@ -118,35 +162,50 @@ const [cart, setCart] = useState<CartItem[]>([]);
       <Navbar />
       <title>{product.name} | The Black Company</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
 
-      <div className=" text-white px-6 py-20 min-h-screen flex flex-col lg:flex-row gap-10">
+      <div className="text-white px-6 py-20 min-h-screen flex flex-col lg:flex-row gap-10">
         <div className="absolute inset-0 -z-10">
           {mainImage ? (
-              <Image src={mainImage} alt={product.name} fill 
-            className="object-cover opacity-10"
-            priority
-          />  ) : null}
+            <Image
+              src={mainImage}
+              alt={product.name}
+              fill
+              className="object-cover opacity-10"
+              priority
+            />
+          ) : null}
         </div>
+
+        {/* Left side - Images */}
         <div className="w-full lg:w-1/2 space-y-6">
-          <div className="w-full h-[500px] relative  overflow-hidden border border-white/10">
+          <div className="w-full h-[500px] relative overflow-hidden border border-white/10">
             {mainImage ? (
               <Image src={mainImage} alt={product.name} fill className="object-cover" />
             ) : null}
           </div>
+
           <div className="flex gap-4 flex-wrap">
             {[product.image, ...(product.images || [])].map((img, i) => (
               <div
                 key={i}
                 onClick={() => setMainImage(img)}
-                className={`w-20 h-20 cursor-pointer border ${mainImage === img ? "border-white" : "border-white/20"}`}
+                className={`w-20 h-20 cursor-pointer border ${
+                  mainImage === img ? "border-white" : "border-white/20"
+                }`}
               >
-                <Image src={img} alt={product.name} width={80} height={80} className="object-cover w-full h-full" />
+                <Image
+                  src={img}
+                  alt={product.name}
+                  width={80}
+                  height={80}
+                  className="object-cover w-full h-full"
+                />
               </div>
             ))}
           </div>
         </div>
 
+        {/* Right side - Details */}
         <div className="w-full lg:w-1/2 space-y-6 bg-white/10 backdrop-blur-lg p-6 border-2 border-white/10">
           <div className="flex items-center justify-between">
             <h2 className="text-4xl font-bold tracking-wide">{product.name}</h2>
@@ -183,36 +242,61 @@ const [cart, setCart] = useState<CartItem[]>([]);
               </div>
             </div>
           )}
-{!product.inStock || !product.quantityInStock ? (
-  <p className="text-red-500 text-sm mt-4">Currently Out of Stock</p>
-) : (
-  <div className="flex items-center gap-4 mt-4">
-    <span className="text-sm text-white/60">Quantity:</span>
-    <div className="flex items-center gap-2">
-      <button
-        onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-        className="w-8 h-8 border border-white flex items-center justify-center"
-      >
-        <Minus className="w-4 h-4" />
-      </button>
-      <span className="w-8 text-center">{quantity}</span>
-      <button
-        onClick={() => setQuantity((q) => q + 1)}
-        disabled={quantity >= product.quantityInStock}
-        className="w-8 h-8 border border-white flex items-center justify-center disabled:opacity-30"
-      >
-        <Plus className="w-4 h-4" />
-      </button>
-    </div>
-  </div>
-)}
 
+          {!product.inStock || !product.quantityInStock ? (
+            <p className="text-red-500 text-sm mt-4">Currently Out of Stock</p>
+          ) : (
+            <div className="flex items-center gap-4 mt-4">
+              <span className="text-sm text-white/60">Quantity:</span>
+              <div className="flex items-center gap-4">
+                {/* Quantity controls */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                    className="w-8 h-8 border border-white flex items-center justify-center"
+                  >
+                    <Minus className="w-4 h-4" />
+                  </button>
+                  <span className="w-8 text-center">{quantity}</span>
+                  <button
+                    onClick={() => setQuantity((q) => q + 1)}
+                    disabled={quantity >= product.quantityInStock}
+                    className="w-8 h-8 border border-white flex items-center justify-center disabled:opacity-30"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* ❤️ Wishlist Button */}
+                <button
+                  onClick={toggleWishlist}
+                  className={`w-10 h-10 flex items-center justify-center border rounded transition ${
+                    isWishlisted
+                      ? "bg-white text-black"
+                      : "border-white text-white hover:bg-white/10"
+                  }`}
+                  aria-label="Wishlist"
+                >
+                  <Heart
+                    className={`w-5 h-5 transition-all ${
+                      isWishlisted ? "fill-current text-black" : "text-white"
+                    }`}
+                    fill={isWishlisted ? "currentColor" : "none"}
+                  />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Cart + Buy Buttons */}
           <div className="flex flex-row items-center gap-6 mt-6">
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={isInCart ? removeFromCart : addToCart}
-              className={`flex-1 py-3  font-semibold flex items-center justify-center gap-2 transition-all ${
-                isInCart ? "bg-white text-black" : "bg-black border border-white text-white"
+              className={`flex-1 py-3 font-semibold flex items-center justify-center gap-2 transition-all ${
+                isInCart
+                  ? "bg-white text-black"
+                  : "bg-black border border-white text-white"
               }`}
             >
               {isInCart ? "Remove from Cart" : "Add to Cart"}
@@ -221,7 +305,7 @@ const [cart, setCart] = useState<CartItem[]>([]);
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={handleCheckout}
-              className="flex-1 py-3  border border-white text-white hover:bg-white hover:text-black font-semibold flex items-center justify-center gap-2 transition"
+              className="flex-1 py-3 border border-white text-white hover:bg-white hover:text-black font-semibold flex items-center justify-center gap-2 transition"
             >
               Buy Now
             </motion.button>
