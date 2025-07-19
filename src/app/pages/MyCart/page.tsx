@@ -104,14 +104,14 @@ type CartItem = {
                       <div className="flex items-center gap-3 justify-center sm:justify-start mt-2">
                         <button
                           onClick={() => updateQuantity(item.slug, item.size, -1)}
-                          className="w-8 h-8 rounded-full border border-white flex items-center justify-center"
+                          className="w-8 h-8  border border-white flex items-center justify-center"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
                         <span className="w-6 text-center">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.slug, item.size, 1)}
-                          className="w-8 h-8 rounded-full border border-white flex items-center justify-center"
+                          className="w-8 h-8 border border-white flex items-center justify-center"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
