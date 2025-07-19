@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
       {/* Top Nav */}
       <div
   className={`flex items-center px-6 md:px-10 h-16 mx-auto transition-all duration-300 
-  ${isScrolled ? "bg-black/30 backdrop-blur-md border-b border-white/20 shadow-sm" : ""}`}
+  ${isScrolled ? "bg-black/30 backdrop-blur-md border-b border-white/20 shadow-sm" : "bg-transparent"}`}
 >
   <div className="relative flex items-center w-full">
     

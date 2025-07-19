@@ -35,7 +35,7 @@ const NavbarProfileDash: React.FC<NavbarProfileDashProps> = ({ onSelectSection, 
     <nav className="fixed top-0 left-0 w-full z-[100] ">
       <div
         className={`flex justify-between items-center px-6 md:px-10 h-16  mx-auto transition-all duration-300 
-        ${isScrolled ? "bg-black/30 backdrop-blur-md border-b border-white/20 shadow-sm" : ""}`}
+        ${isScrolled ? "bg-black/30 backdrop-blur-md border-b border-white/20 shadow-sm" : "bg-transparent"}`}
       >
         <div className="relative flex items-center w-full">
             {/* Logo - left */}
