@@ -6,6 +6,10 @@ import Link from "next/link";
 import { products } from "@/app/data/prod";
 import Navbar from "@/app/components/Navbar";
 
+// Define types
+type Product = typeof products[0];
+type CartItem = Product & { quantity: number };
+
 const categories = Array.from(new Set(products.map((p) => p.category)));
 const seasons = Array.from(new Set(products.map((p) => p.season)));
 
@@ -16,7 +20,7 @@ export default function ProductsPage() {
   const [maxPrice, setMaxPrice] = useState(Math.max(...products.map((p) => p.price)));
   const [sortBy, setSortBy] = useState<"price-asc" | "price-desc" | "name-asc" | null>(null);
 
-  const [cart, setCart] = useState<any[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   useEffect(() => {
     const stored = localStorage.getItem("cart");
@@ -25,11 +29,11 @@ export default function ProductsPage() {
     }
   }, []);
 
-  const isProductInCart = (product: typeof products[0]) => {
+  const isProductInCart = (product: Product) => {
     return cart.some((item) => item.id === product.id);
   };
 
-  const addToCart = (product: typeof products[0]) => {
+  const addToCart = (product: Product) => {
     const updatedCart = [...cart];
     const index = updatedCart.findIndex((item) => item.id === product.id);
 
@@ -43,13 +47,13 @@ export default function ProductsPage() {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  const removeFromCart = (product: typeof products[0]) => {
+  const removeFromCart = (product: Product) => {
     const updatedCart = cart.filter((item) => item.id !== product.id);
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  let filteredProducts = products.filter((product) => {
+  const filteredProducts = products.filter((product) => {
     if (selectedCategory && product.category !== selectedCategory) return false;
     if (selectedSeason && product.season !== selectedSeason) return false;
     if (showNewArrivalsOnly && !product.isNewArrival) return false;
@@ -86,7 +90,6 @@ export default function ProductsPage() {
 
           {/* Filters */}
           <div className="flex flex-wrap gap-6 mb-8 items-center bg-white/20 backdrop-blur:md p-6">
-            {/* Category */}
             <div className="flex items-center gap-2 flex-wrap">
               <span className="font-semibold uppercase text-white/70">Category:</span>
               <button
@@ -110,7 +113,6 @@ export default function ProductsPage() {
               ))}
             </div>
 
-            {/* Season */}
             <div className="flex items-center gap-2 flex-wrap">
               <span className="font-semibold uppercase text-white/70">Season:</span>
               <button
@@ -134,7 +136,6 @@ export default function ProductsPage() {
               ))}
             </div>
 
-            {/* New Arrivals Toggle */}
             <div className="flex items-center gap-2">
               <label className="relative inline-flex items-center cursor-pointer select-none">
                 <input
@@ -181,7 +182,11 @@ export default function ProductsPage() {
               <select
                 id="sortBy"
                 value={sortBy || ""}
-                onChange={(e) => setSortBy(e.target.value as any)}
+                onChange={(e) =>
+                  setSortBy(
+                    e.target.value as "price-asc" | "price-desc" | "name-asc" | null
+                  )
+                }
                 className="bg-black border border-white/30 text-white py-1 px-3 focus:outline-none focus:ring-2 focus:ring-white/60"
               >
                 <option value="">None</option>
