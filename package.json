@@ -1,5 +1,6 @@
 {
   "name": "theblackcompany",
+  "proxy": "http://127.0.0.1:5000",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -19,6 +20,8 @@
     "react-toastify": "^11.0.5"
   },
   "devDependencies": {
+    "@babel/node": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",

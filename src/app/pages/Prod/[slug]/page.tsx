@@ -8,6 +8,8 @@ import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { motion } from "framer-motion";
 import { ArrowLeft, Plus, Minus, Heart } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { cartAPI, wishlistAPI } from "@/services/api";
 
 type CartItem = {
   id: number;
@@ -22,6 +24,7 @@ type CartItem = {
 export default function ProductDetails() {
   const { slug } = useParams();
   const router = useRouter();
+  const { user, updateUser } = useAuth();
   const product = products.find((p) => p.slug === slug);
 
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -29,47 +32,25 @@ export default function ProductDetails() {
   const [mainImage, setMainImage] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
   const [selectedSize, setSelectedSize] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (product) setMainImage(product.image);
 
-    const storedCart = localStorage.getItem("cart");
-    if (storedCart) {
-      try {
-        const parsed = JSON.parse(storedCart);
-        if (Array.isArray(parsed)) {
-          setCart(parsed);
-          const match = parsed.find((item) => item.slug === product?.slug);
-          if (match) {
-            setSelectedSize(match.size);
-            setQuantity(match.quantity);
-          }
-        }
-      } catch {
-        setCart([]);
+    if (user) {
+      setCart(user.cart || []);
+      setWishlist(user.wishlist || []);
+      
+      // Check if product is already in cart
+      const match = user.cart?.find((item) => item.slug === product?.slug);
+      if (match) {
+        setSelectedSize(match.size);
+        setQuantity(match.quantity);
       }
     }
+  }, [product, user]);
 
-    const storedWishlist = localStorage.getItem("wishlist");
-    if (storedWishlist) {
-      try {
-        const parsed = JSON.parse(storedWishlist);
-        if (Array.isArray(parsed)) {
-          setWishlist(parsed);
-        }
-      } catch {
-        setWishlist([]);
-      }
-    }
-  }, [product]);
-
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
-
-  useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-  }, [wishlist]);
+  // Remove localStorage sync effects - now handled by API
 
   useEffect(() => {
     if (!selectedSize && Array.isArray(product?.sizes) && product.sizes.length > 0) {
@@ -93,13 +74,23 @@ export default function ProductDetails() {
     (item) => item.slug === product.slug && item.size === selectedSize
   );
 
-  const syncCartWithLocalStorage = (updatedCart: CartItem[]) => {
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  const syncCartWithAPI = async (updatedCart: CartItem[]) => {
+    if (!user) return;
+    
+    try {
+      setLoading(true);
+      const updatedUser = await cartAPI.updateCart(updatedCart);
+      updateUser(updatedUser);
+      setCart(updatedCart);
+    } catch (error) {
+      console.error('Failed to update cart:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const addToCart = () => {
-    if (!selectedSize) return;
+  const addToCart = async () => {
+    if (!selectedSize || !user) return;
     const exists = cart.find(
       (item) => item.slug === product.slug && item.size === selectedSize
     );
@@ -109,7 +100,7 @@ export default function ProductDetails() {
           ? { ...item, quantity: item.quantity + quantity }
           : item
       );
-      syncCartWithLocalStorage(updatedCart);
+      await syncCartWithAPI(updatedCart);
     } else {
       const newItem = {
         id: product.id,
@@ -120,15 +111,16 @@ export default function ProductDetails() {
         quantity,
         size: selectedSize,
       };
-      syncCartWithLocalStorage([...cart, newItem]);
+      await syncCartWithAPI([...cart, newItem]);
     }
   };
 
-  const removeFromCart = () => {
+  const removeFromCart = async () => {
+    if (!user) return;
     const updatedCart = cart.filter(
       (item) => item.slug !== product.slug || item.size !== selectedSize
     );
-    syncCartWithLocalStorage(updatedCart);
+    await syncCartWithAPI(updatedCart);
   };
 
   const toggleWishlist = () => {

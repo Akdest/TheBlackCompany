@@ -6,27 +6,33 @@ import Image from "next/image";
 import React, { useState } from "react";
 import Footer from "@/app/components/Footer";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 
 
 
 
 export default function Login() {
   const router = useRouter();
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
+  const { signin } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
-
-  // Example form validation
-
-  // You can also add more logic here (API calls, loading states, etc.)
-  console.log("Logging in with:", email, password);
-
-  // Navigate to Profile Dashboard
-  router.push("/pages/ProfileDashboard");
-};
+    try {
+      await signin(email, password);
+      router.push("/pages/ProfileDashboard");
+    } catch (error: any) {
+      setError(error.message || "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <>
     <title>Login | The Black Company</title>
