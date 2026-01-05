@@ -9,7 +9,7 @@ import Footer from "@/app/components/Footer";
 import { motion } from "framer-motion";
 import { ArrowLeft, Plus, Minus, Heart } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import { cartAPI, wishlistAPI } from "@/services/api";
+import { cartAPI } from "@/services/api";
 
 type CartItem = {
   id: number;
@@ -32,7 +32,6 @@ export default function ProductDetails() {
   const [mainImage, setMainImage] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
   const [selectedSize, setSelectedSize] = useState<string>("");
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (product) setMainImage(product.image);
@@ -40,8 +39,7 @@ export default function ProductDetails() {
     if (user) {
       setCart(user.cart || []);
       setWishlist(user.wishlist || []);
-      
-      // Check if product is already in cart
+
       const match = user.cart?.find((item) => item.slug === product?.slug);
       if (match) {
         setSelectedSize(match.size);
@@ -49,8 +47,6 @@ export default function ProductDetails() {
       }
     }
   }, [product, user]);
-
-  // Remove localStorage sync effects - now handled by API
 
   useEffect(() => {
     if (!selectedSize && Array.isArray(product?.sizes) && product.sizes.length > 0) {
@@ -76,24 +72,23 @@ export default function ProductDetails() {
 
   const syncCartWithAPI = async (updatedCart: CartItem[]) => {
     if (!user) return;
-    
+
     try {
-      setLoading(true);
       const updatedUser = await cartAPI.updateCart(updatedCart);
       updateUser(updatedUser);
       setCart(updatedCart);
     } catch (error) {
-      console.error('Failed to update cart:', error);
-    } finally {
-      setLoading(false);
+      console.error("Failed to update cart:", error);
     }
   };
 
   const addToCart = async () => {
     if (!selectedSize || !user) return;
+
     const exists = cart.find(
       (item) => item.slug === product.slug && item.size === selectedSize
     );
+
     if (exists) {
       const updatedCart = cart.map((item) =>
         item.slug === product.slug && item.size === selectedSize
@@ -117,6 +112,7 @@ export default function ProductDetails() {
 
   const removeFromCart = async () => {
     if (!user) return;
+
     const updatedCart = cart.filter(
       (item) => item.slug !== product.slug || item.size !== selectedSize
     );
@@ -157,7 +153,7 @@ export default function ProductDetails() {
 
       <div className="text-white px-6 py-20 min-h-screen flex flex-col lg:flex-row gap-10">
         <div className="absolute inset-0 -z-10">
-          {mainImage ? (
+          {mainImage && (
             <Image
               src={mainImage}
               alt={product.name}
@@ -165,15 +161,15 @@ export default function ProductDetails() {
               className="object-cover opacity-10"
               priority
             />
-          ) : null}
+          )}
         </div>
 
-        {/* Left side - Images */}
+        {/* Left */}
         <div className="w-full lg:w-1/2 space-y-6">
           <div className="w-full h-[500px] relative overflow-hidden border border-white/10">
-            {mainImage ? (
+            {mainImage && (
               <Image src={mainImage} alt={product.name} fill className="object-cover" />
-            ) : null}
+            )}
           </div>
 
           <div className="flex gap-4 flex-wrap">
@@ -197,7 +193,7 @@ export default function ProductDetails() {
           </div>
         </div>
 
-        {/* Right side - Details */}
+        {/* Right */}
         <div className="w-full lg:w-1/2 space-y-6 bg-white/10 backdrop-blur-lg p-6 border-2 border-white/10">
           <div className="flex items-center justify-between">
             <h2 className="text-4xl font-bold tracking-wide">{product.name}</h2>
@@ -211,8 +207,12 @@ export default function ProductDetails() {
           </div>
 
           <p className="text-white/60 text-sm">Category: {product.category}</p>
-          <p className="text-white text-2xl font-mono">₹{product.price.toLocaleString()}</p>
-          <p className="text-white/70 text-sm leading-relaxed">{product.description}</p>
+          <p className="text-white text-2xl font-mono">
+            ₹{product.price.toLocaleString()}
+          </p>
+          <p className="text-white/70 text-sm leading-relaxed">
+            {product.description}
+          </p>
 
           {Array.isArray(product.sizes) && product.sizes.length > 0 && (
             <div>
@@ -240,8 +240,8 @@ export default function ProductDetails() {
           ) : (
             <div className="flex items-center gap-4 mt-4">
               <span className="text-sm text-white/60">Quantity:</span>
+
               <div className="flex items-center gap-4">
-                {/* Quantity controls */}
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -249,7 +249,9 @@ export default function ProductDetails() {
                   >
                     <Minus className="w-4 h-4" />
                   </button>
+
                   <span className="w-8 text-center">{quantity}</span>
+
                   <button
                     onClick={() => setQuantity((q) => q + 1)}
                     disabled={quantity >= product.quantityInStock}
@@ -259,7 +261,6 @@ export default function ProductDetails() {
                   </button>
                 </div>
 
-                {/* ❤️ Wishlist Button */}
                 <button
                   onClick={toggleWishlist}
                   className={`w-10 h-10 flex items-center justify-center border rounded transition ${
@@ -270,7 +271,7 @@ export default function ProductDetails() {
                   aria-label="Wishlist"
                 >
                   <Heart
-                    className={`w-5 h-5 transition-all ${
+                    className={`w-5 h-5 ${
                       isWishlisted ? "fill-current text-black" : "text-white"
                     }`}
                     fill={isWishlisted ? "currentColor" : "none"}
@@ -280,12 +281,11 @@ export default function ProductDetails() {
             </div>
           )}
 
-          {/* Cart + Buy Buttons */}
-          <div className="flex flex-row items-center gap-6 mt-6">
+          <div className="flex gap-6 mt-6">
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={isInCart ? removeFromCart : addToCart}
-              className={`flex-1 py-3 font-semibold flex items-center justify-center gap-2 transition-all ${
+              className={`flex-1 py-3 font-semibold ${
                 isInCart
                   ? "bg-white text-black"
                   : "bg-black border border-white text-white"
@@ -297,13 +297,14 @@ export default function ProductDetails() {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={handleCheckout}
-              className="flex-1 py-3 border border-white text-white hover:bg-white hover:text-black font-semibold flex items-center justify-center gap-2 transition"
+              className="flex-1 py-3 border border-white text-white hover:bg-white hover:text-black font-semibold"
             >
               Buy Now
             </motion.button>
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );

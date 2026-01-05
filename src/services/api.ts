@@ -1,32 +1,74 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = "http://localhost:5000/api";
 
-// Helper function to get auth token from localStorage
-const getAuthToken = () => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('authToken');
+/* ===================== TYPES ===================== */
+
+export interface CartItem {
+  id: number;
+  slug: string;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+  size: string;
+}
+
+export interface User {
+  _id: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  isAdmin: boolean;
+  cart: CartItem[];
+  wishlist: CartItem[];
+  contactnumber: string;
+}
+
+export interface RegisterPayload {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  contactnumber: string;
+}
+
+export interface OrderPayload {
+  items: CartItem[];
+  totalPrice: number;
+  shippingAddress: unknown;
+  paymentMethod: string;
+}
+
+/* ===================== TOKEN HELPERS ===================== */
+
+const getAuthToken = (): string | null => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("authToken");
   }
   return null;
 };
 
-// Helper function to set auth token
-const setAuthToken = (token: string) => {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('authToken', token);
+const setAuthToken = (token: string): void => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("authToken", token);
   }
 };
 
-// Helper function to remove auth token
-const removeAuthToken = () => {
-  if (typeof window !== 'undefined') {
-    localStorage.removeItem('authToken');
+const removeAuthToken = (): void => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("authToken");
   }
 };
 
-// API request helper
-const apiRequest = async (endpoint: string, options: RequestInit = {}) => {
+/* ===================== API REQUEST ===================== */
+
+const apiRequest = async <T>(
+  endpoint: string,
+  options: RequestInit = {}
+): Promise<T> => {
   const token = getAuthToken();
+
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
     ...(options.headers as Record<string, string>),
   };
 
@@ -43,157 +85,170 @@ const apiRequest = async (endpoint: string, options: RequestInit = {}) => {
     throw new Error(`API request failed: ${response.statusText}`);
   }
 
-  return response.json();
+  return response.json() as Promise<T>;
 };
 
-// Auth API
+/* ===================== AUTH API ===================== */
+
 export const authAPI = {
-  signin: async (email: string, password: string) => {
-    const response = await apiRequest('/users/signin', {
-      method: 'POST',
+  signin: async (email: string, password: string): Promise<User & { token: string }> => {
+    const response = await apiRequest<User & { token: string }>("/users/signin", {
+      method: "POST",
       body: JSON.stringify({ email, password }),
     });
+
     setAuthToken(response.token);
     return response;
   },
 
-  register: async (userData: any) => {
-    const response = await apiRequest('/users/register', {
-      method: 'POST',
+  register: async (userData: RegisterPayload): Promise<User & { token: string }> => {
+    const response = await apiRequest<User & { token: string }>("/users/register", {
+      method: "POST",
       body: JSON.stringify(userData),
     });
+
     setAuthToken(response.token);
     return response;
   },
 
-  signout: () => {
+  signout: (): void => {
     removeAuthToken();
   },
 
-  getCurrentUser: async () => {
-    return await apiRequest('/users/profile');
+  getCurrentUser: async (): Promise<User> => {
+    return await apiRequest<User>("/users/profile");
   },
 };
 
-// Cart API
+/* ===================== CART API ===================== */
+
 export const cartAPI = {
-  getCart: async () => {
+  getCart: async (): Promise<CartItem[]> => {
     const user = await authAPI.getCurrentUser();
     return user.cart || [];
   },
 
-  addToCart: async (item: any) => {
+  addToCart: async (item: CartItem): Promise<User> => {
     const user = await authAPI.getCurrentUser();
-    const updatedCart = [...(user.cart || []), item];
-    
-    return await apiRequest(`/users/${user._id}`, {
-      method: 'PUT',
+    const updatedCart: CartItem[] = [...(user.cart || []), item];
+
+    return await apiRequest<User>(`/users/${user._id}`, {
+      method: "PUT",
       body: JSON.stringify({ cart: updatedCart }),
     });
   },
 
-  updateCart: async (cart: any[]) => {
+  updateCart: async (cart: CartItem[]): Promise<User> => {
     const user = await authAPI.getCurrentUser();
-    
-    return await apiRequest(`/users/${user._id}`, {
-      method: 'PUT',
+
+    return await apiRequest<User>(`/users/${user._id}`, {
+      method: "PUT",
       body: JSON.stringify({ cart }),
     });
   },
 
-  removeFromCart: async (itemId: number) => {
+  removeFromCart: async (itemId: number): Promise<User> => {
     const user = await authAPI.getCurrentUser();
-    const updatedCart = (user.cart || []).filter((item: any) => item.id !== itemId);
-    
-    return await apiRequest(`/users/${user._id}`, {
-      method: 'PUT',
+    const updatedCart: CartItem[] = (user.cart || []).filter(
+      (item) => item.id !== itemId
+    );
+
+    return await apiRequest<User>(`/users/${user._id}`, {
+      method: "PUT",
       body: JSON.stringify({ cart: updatedCart }),
     });
   },
 
-  clearCart: async () => {
+  clearCart: async (): Promise<User> => {
     const user = await authAPI.getCurrentUser();
-    
-    return await apiRequest(`/users/${user._id}`, {
-      method: 'PUT',
+
+    return await apiRequest<User>(`/users/${user._id}`, {
+      method: "PUT",
       body: JSON.stringify({ cart: [] }),
     });
   },
 };
 
-// Wishlist API
+/* ===================== WISHLIST API ===================== */
+
 export const wishlistAPI = {
-  getWishlist: async () => {
+  getWishlist: async (): Promise<CartItem[]> => {
     const user = await authAPI.getCurrentUser();
     return user.wishlist || [];
   },
 
-  addToWishlist: async (item: any) => {
+  addToWishlist: async (item: CartItem): Promise<User> => {
     const user = await authAPI.getCurrentUser();
-    const updatedWishlist = [...(user.wishlist || []), item];
-    
-    return await apiRequest(`/users/${user._id}`, {
-      method: 'PUT',
+    const updatedWishlist: CartItem[] = [...(user.wishlist || []), item];
+
+    return await apiRequest<User>(`/users/${user._id}`, {
+      method: "PUT",
       body: JSON.stringify({ wishlist: updatedWishlist }),
     });
   },
 
-  removeFromWishlist: async (itemId: number) => {
+  removeFromWishlist: async (itemId: number): Promise<User> => {
     const user = await authAPI.getCurrentUser();
-    const updatedWishlist = (user.wishlist || []).filter((item: any) => item.id !== itemId);
-    
-    return await apiRequest(`/users/${user._id}`, {
-      method: 'PUT',
+    const updatedWishlist: CartItem[] = (user.wishlist || []).filter(
+      (item) => item.id !== itemId
+    );
+
+    return await apiRequest<User>(`/users/${user._id}`, {
+      method: "PUT",
       body: JSON.stringify({ wishlist: updatedWishlist }),
     });
   },
 
-  clearWishlist: async () => {
+  clearWishlist: async (): Promise<User> => {
     const user = await authAPI.getCurrentUser();
-    
-    return await apiRequest(`/users/${user._id}`, {
-      method: 'PUT',
+
+    return await apiRequest<User>(`/users/${user._id}`, {
+      method: "PUT",
       body: JSON.stringify({ wishlist: [] }),
     });
   },
 };
 
-// Products API
+/* ===================== PRODUCTS API ===================== */
+
 export const productsAPI = {
-  getAllProducts: async () => {
-    return await apiRequest('/products');
+  getAllProducts: async (): Promise<unknown[]> => {
+    return await apiRequest<unknown[]>("/products");
   },
 
-  getProduct: async (id: string) => {
-    return await apiRequest(`/products/${id}`);
+  getProduct: async (id: string): Promise<unknown> => {
+    return await apiRequest<unknown>(`/products/${id}`);
   },
 
-  getProductsByCategory: async (category: string) => {
-    return await apiRequest(`/products?category=${category}`);
+  getProductsByCategory: async (category: string): Promise<unknown[]> => {
+    return await apiRequest<unknown[]>(`/products?category=${category}`);
   },
 
-  searchProducts: async (keyword: string) => {
-    return await apiRequest(`/products?searchKeyword=${keyword}`);
+  searchProducts: async (keyword: string): Promise<unknown[]> => {
+    return await apiRequest<unknown[]>(`/products?searchKeyword=${keyword}`);
   },
 };
 
-// Orders API
+/* ===================== ORDERS API ===================== */
+
 export const ordersAPI = {
-  createOrder: async (orderData: any) => {
-    return await apiRequest('/orders', {
-      method: 'POST',
+  createOrder: async (orderData: OrderPayload): Promise<unknown> => {
+    return await apiRequest<unknown>("/orders", {
+      method: "POST",
       body: JSON.stringify(orderData),
     });
   },
 
-  getUserOrders: async () => {
-    return await apiRequest('/orders/mine');
+  getUserOrders: async (): Promise<unknown[]> => {
+    return await apiRequest<unknown[]>("/orders/mine");
   },
 
-  getOrder: async (id: string) => {
-    return await apiRequest(`/orders/${id}`);
+  getOrder: async (id: string): Promise<unknown> => {
+    return await apiRequest<unknown>(`/orders/${id}`);
   },
 };
+
+/* ===================== EXPORT ===================== */
 
 export default {
   auth: authAPI,
@@ -201,4 +256,4 @@ export default {
   wishlist: wishlistAPI,
   products: productsAPI,
   orders: ordersAPI,
-}; 
+};
